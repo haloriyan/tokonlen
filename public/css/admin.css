@@ -1,0 +1,85 @@
+.atas {
+    position: fixed;
+    top: 0px;left: 0px;right: 0px;
+    left: 20%;
+    line-height: 70px;
+    background-color: #fff;
+    box-shadow: 1px 1px 5px 1px #ddd;
+    transition: 0.4s;
+    z-index: 1;
+}
+.atas h1 {
+    font-size: 23px;
+    margin: 0;
+    margin-left: 2.5%;
+    float: left;
+    cursor: pointer;
+}
+.atas #tblMenu {
+    float: left;
+    margin-left: 5%;
+    font-size: 22px;
+    cursor: pointer;
+}
+.atas button {
+    float: right;
+    margin-right: 5%;
+    margin-top: 8px;
+}
+
+.kiri {
+    transition: 0.6s;
+    position: fixed;
+    top: 0px;left: 0px;bottom: 0px;
+    width: 20%;
+    background-color: #0a5e6a;
+    color: #fff;
+}
+.kiri a {
+    color: #fff;
+    text-decoration: none;
+}
+.kiri li,.kiri button {
+    background: none;
+    text-align: left;
+    color: #fff;
+    list-style: none;
+    font-size: 18px;
+    padding: 25px 30px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.4s;
+}
+.kiri button { width: 100%; }
+.kiri .icon {
+    display: inline-block;
+    width: 40px;
+}
+.kiri li:hover,.kiri button:hover {
+    /* background-color: #01424d; */
+}
+.kiri li .sub {
+    margin-left: 250px;
+}
+
+.container {
+    position: absolute;
+    top: 130px;left: 25%;right: 5%;
+    transition: 0.6s;
+    margin-bottom: 50px;
+}
+.container .bag {
+    background-color: #fff;
+    box-shadow: 1px 1px 5px 1px #ddd;
+    border-radius: 6px;
+    margin-bottom: 30px;
+    margin-right: 4.6px;
+}
+.container .bag .bag {
+    box-shadow: none;
+    margin: 0;
+    border-radius: 0px;
+}
+form .box {
+    margin: 8px 0px 25px 0px;
+}

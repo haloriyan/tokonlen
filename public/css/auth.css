@@ -1,0 +1,28 @@
+.container {
+    position: absolute;
+    top: 190px;left: 32%;right: 32%;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px 1px #ddd;
+    margin-bottom: 70px;
+}
+.container .box {
+    margin: 8px 0px 25px 0px;
+}
+h1 {
+    position: absolute;
+    left: 33.5%;top: 80px;
+    font-size: 45px;
+    color: #777;
+}
+
+@media(max-width: 480px) {
+    .container {
+        left: 5%;right: 5%;top: 100px;
+    }
+    h1 {
+        left: 10%;top: 20px;
+        color: #aaa;
+        font-size: 35px;
+    }
+}
