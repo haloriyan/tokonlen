@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use Cookie;
+use App\User;
 use App\Config;
 use App\Product;
-use App\User;
 
 class UserController extends Controller
 {
@@ -39,6 +40,10 @@ class UserController extends Controller
     public function loginPage() {
         $conf = Config::first();
         return view('auth.login')->with('config', $conf);
+    }
+    public function loginGoogle() {
+        $conf = Config::first();
+        return view('auth.google')->with('config', $conf);
     }
     public function registerPage($email = NULL, $nama = NULL) {
         $email = base64_decode($email);
@@ -91,5 +96,24 @@ class UserController extends Controller
         Auth::logout();
 
         return redirect()->route('user.index');
+    }
+    public function settings() {
+        $myData = Auth::user();
+        $conf = Config::first();
+        $notif = Cookie::get('notif');
+        return view('user.settings')->with(['myData' => $myData, 'config' => $conf, 'notif' => $notif]);
+    }
+    public function saveSettings(Request $req) {
+        $myId = Auth::user()->iduser;
+
+        $u = User::find($myId);
+        $u->nama = $req->nama;
+        $u->alamat = $req->alamat;
+
+        $u->save();
+
+        Cookie::queue('notif', 'Perubahan berhasil disimpan', '0.25');
+
+        return redirect()->route('user.settings');
     }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.user')
 
-@section('title', 'Keranjang Belanja')
+@section('title', 'Keranjang')
 
 @php
 function toIdr($angka) {
@@ -13,7 +13,7 @@ function toIdr($angka) {
 <div class="container rata-tengah" style="top: 150px;">
     <div class="bag bag-8 d-inline-block bg-putih rounded bayangan-5 rata-kiri">
         <div class="wrap">
-            @if($myCart->count() == 0)
+            @if($myCart == "null" || $myCart->count() == 0)
                 <h3>Keranjang kosong :)</h3>
             @else
                 <table>
@@ -32,7 +32,7 @@ function toIdr($angka) {
                                 <td>{{ $item->qty }}</td>
                                 <td>{{ toIdr($item->total) }}</td>
                                 <td>
-                                    <form action="{{ route('cart.delete', $item->idcart) }}" method="post">
+                                    <form action="{{ route('cart.delete', $item->iddetail) }}" method="post">
                                         {{ csrf_field() }}
                                         <button class="merah-alt"><i class="fas fa-trash"></i></button>
                                     </form>
@@ -47,6 +47,7 @@ function toIdr($angka) {
                     </tbody>
                 </table>
                 <div class="rata-tengah mt-4">
+                    <a href="{{ route('user.index') }}"><button class="hijau-alt">Belanja lainnya</button></a>
                     <button class="biru-alt">Lanjut checkout</button>
                 </div>
             @endif

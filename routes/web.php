@@ -15,10 +15,13 @@
 Route::get('/cari', 'UserController@cariProduct')->name('user.cari');
 Route::get('/', 'UserController@indexPage')->name('user.index');
 Route::get('/login', 'UserController@loginPage')->name('login.page');
+Route::get('/login/google', 'UserController@loginGoogle')->name('login.google');
 Route::get('/register/{email}/{nama}', 'UserController@registerViaFacebook');
 Route::get('/register', 'UserController@registerPage')->name('register.page');
 Route::post('/login', 'UserController@login')->name('login');
 Route::get('/logout', 'UserController@logout')->name('logout');
+Route::get('/profil/pengaturan', 'UserController@settings')->name('user.settings');
+Route::post('/profil/pengaturan', 'UserController@saveSettings')->name('user.settings.save');
 Route::post('/register', 'UserController@register')->name('register');
 Route::get('/produk/{id}', 'UserController@viewProduct')->name('product.view');
 
