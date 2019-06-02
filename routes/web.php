@@ -14,9 +14,11 @@
 // Untuk user
 Route::get('/cari', 'UserController@cariProduct')->name('user.cari');
 Route::get('/', 'UserController@indexPage')->name('user.index');
-Route::get('/login', 'UserController@loginPage')->name('login.page');
+Route::get('/login', 'UserController@loginPage')->name('user.login');
+Route::get('/login/facebook', 'UserController@loginFacebook')->name('login.facebook');
 Route::get('/login/google', 'UserController@loginGoogle')->name('login.google');
-Route::get('/register/{email}/{nama}', 'UserController@registerViaFacebook');
+Route::get('/register/facebook/{email}/{nama}', 'UserController@registerViaFacebook');
+Route::get('/register/google/{email}/{nama}', 'UserController@registerViaGoogle');
 Route::get('/register', 'UserController@registerPage')->name('register.page');
 Route::post('/login', 'UserController@login')->name('login');
 Route::get('/logout', 'UserController@logout')->name('logout');

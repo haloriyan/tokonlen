@@ -41,6 +41,10 @@ class UserController extends Controller
         $conf = Config::first();
         return view('auth.login')->with('config', $conf);
     }
+    public function loginFacebook() {
+        $conf = Config::first();
+        return view('auth.facebook')->with('config', $conf);
+    }
     public function loginGoogle() {
         $conf = Config::first();
         return view('auth.google')->with('config', $conf);
@@ -83,9 +87,23 @@ class UserController extends Controller
 
         return redirect()->route('user.index');
     }
+    public function registerViaGoogle($email, $nama) {
+        $email = base64_decode($email);
+        $nama = base64_decode($nama);
+
+        $u = new User;
+        $u->iduser = rand(1, 9999);
+        $u->nama = $nama;
+        $u->email = $email;
+        $u->password = bcrypt('google');
+        $u->alamat = '';
+        $u->save();
+
+        return redirect()->route('login.google');
+    }
     public function login(Request $req) {
         $email = $req->email;
-        $login = Auth::attempt(['email' => $email, 'password' => "facebook"]);
+        $login = Auth::attempt(['email' => $email, 'password' => $req->pwd]);
         if(!$login) {
             return response()->json(['status' => 0, 'msg' => 'Wrong email / password', 'userData' => $password]);
         }
