@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
+    public function paymentPage() {
+        $conf = Config::first();
+        return view('payment')->with(['config' => $conf, 'myData' => 'public']);
+    }
     public function create() {
         $conf = Config::first();
         return view('admin.payment.create')->with(['config' => $conf]);

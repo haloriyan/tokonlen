@@ -27,6 +27,7 @@ Route::post('/profil/pengaturan', 'UserController@saveSettings')->name('user.set
 Route::post('/register', 'UserController@register')->name('register');
 Route::get('/produk/{id}', 'UserController@viewProduct')->name('product.view');
 Route::get('/orderan-saya', 'OrderanController@mine')->name('user.orderan');
+Route::get('/cara-membayar', 'PaymentController@paymentPage')->name('payment.page');
 
 // user keranjang
 Route::get('/keranjang', 'CartController@index')->name('cart');
