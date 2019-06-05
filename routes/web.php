@@ -26,11 +26,15 @@ Route::get('/profil/pengaturan', 'UserController@settings')->name('user.settings
 Route::post('/profil/pengaturan', 'UserController@saveSettings')->name('user.settings.save');
 Route::post('/register', 'UserController@register')->name('register');
 Route::get('/produk/{id}', 'UserController@viewProduct')->name('product.view');
+Route::get('/orderan-saya', 'OrderanController@mine')->name('user.orderan');
 
 // user keranjang
 Route::get('/keranjang', 'CartController@index')->name('cart');
 Route::post('/cart/store', 'CartController@store')->name('cart.store');
 Route::post('/cart/{id}/delete', 'CartController@delete')->name('cart.delete');
+
+// User Checkout
+Route::get('/orderan/{id}', 'OrderanController@checkout')->name('order.checkout');
 
 // Admin
 Route::get('/admin/produk', 'AdminController@productPage')->name('admin.product');
@@ -51,11 +55,21 @@ Route::get('/admin/konfigurasi', 'AdminController@configPage')->name('admin.conf
 Route::put('/admin/konfigurasi', 'ConfigController@setConfig')->name('admin.config.set');
 Route::put('/admin/konfigurasi/brand', 'ConfigController@setConfig')->name('admin.config.setBrand');
 
-// Category
+Route::get('/admin/pembayaran', 'AdminController@paymentPage')->name('admin.payment');
+Route::get('/admin/pembayaran/tambah', 'PaymentController@create')->name('payment.create');
+
+// Category Controller
 Route::get('/admin/category/all', 'CategoryController@allCat')->name('category.all');
 Route::post('/admin/category/delete', 'CategoryController@delete')->name('category.delete');
 Route::post('/admin/category/store', 'CategoryController@store')->name('category.store');
 Route::post('/admin/category/{id}/update', 'CategoryController@update')->name('category.update');
+
+// Payment Controller
+Route::get('/admin/payment/all', 'PaymentController@allPayment')->name('payment.all');
+Route::post('/admin/payment/store', 'PaymentController@store')->name('payment.store');
+Route::post('/admin/payment/{id}/update', 'PaymentController@update')->name('payment.update');
+Route::post('/admin/payment/delete', 'PaymentController@delete')->name('payment.delete');
+Route::get('/admin/pembayaran/{id}/ubah', 'PaymentController@edit')->name('payment.edit');
 
 Route::get('/curl', 'ProductController@curel');
 Route::get('/test', function() {

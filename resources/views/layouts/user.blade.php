@@ -22,7 +22,7 @@
                 <ul class="sub-menu">
                     <a href="{{ route('cart') }}"><li>Keranjang</li></a>
                     <a href="#"><li>Pesanan</li></a>
-                    <a href="#"><li>Akun</li></a>
+                    <a href="/profil/pengaturan"><li>Akun</li></a>
                     <li>
                         <form action="{{ route('logout') }}" method="get">
                             {{ csrf_field() }}

@@ -15,6 +15,9 @@ function toIdr($angka) {
         <div class="wrap">
             @if($myCart == "null" || $myCart->count() == 0)
                 <h3>Keranjang kosong :)</h3>
+                <div class="rata-tengah">
+                    <a href="{{ route('user.orderan') }}"><button class="biru-alt">Cek orderan</button></a>
+                </div>
             @else
                 <table>
                     <thead>
@@ -48,7 +51,10 @@ function toIdr($angka) {
                 </table>
                 <div class="rata-tengah mt-4">
                     <a href="{{ route('user.index') }}"><button class="hijau-alt">Belanja lainnya</button></a>
-                    <button class="biru-alt">Lanjut checkout</button>
+                    <form action="{{ route('order.checkout', $myCart[0]->order_id) }}" method="get" class="d-inline-block">
+                        {{ csrf_field() }}
+                        <button class="biru-alt">Lanjut checkout</button>
+                    </form>
                 </div>
             @endif
         </div>

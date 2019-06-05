@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Orderan;
 use Illuminate\Http\Request;
 
 class OrderanController extends Controller
@@ -12,5 +13,8 @@ class OrderanController extends Controller
         $ord->save();
 
         return redirect()->route('user.orderan');
+    }
+    public function mine() {
+        echo 'hehe';
     }
 }

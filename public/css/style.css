@@ -80,6 +80,7 @@ button {
     border-radius: 5px;
     border: none;
     font-size: 17px;
+    color: #333;
     cursor: pointer;
     transition: 0.4s;
     font-family: ProBold;

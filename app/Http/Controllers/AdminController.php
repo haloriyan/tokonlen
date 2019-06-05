@@ -17,6 +17,10 @@ class AdminController extends Controller
         $conf = Config::first();
         return view('admin.config')->with(['config' => $conf, 'notif' => '']);
     }
+    public function paymentPage() {
+        $conf = Config::first();
+        return view('admin.payment.index')->with(['config' => $conf, 'notif' => '']);
+    }
     public function category() {
         $conf = Config::first();
         return view('admin.category')->with(['config' => $conf, 'notif' => '']);
