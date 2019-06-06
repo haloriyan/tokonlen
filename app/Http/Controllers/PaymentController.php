@@ -10,7 +10,8 @@ class PaymentController extends Controller
 {
     public function paymentPage() {
         $conf = Config::first();
-        return view('payment')->with(['config' => $conf, 'myData' => 'public']);
+        $datas = Payment::all();
+        return view('payment')->with(['config' => $conf, 'myData' => 'public', 'data' => $datas]);
     }
     public function create() {
         $conf = Config::first();

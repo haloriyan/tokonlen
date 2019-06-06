@@ -21,12 +21,27 @@ class OrderanController extends Controller
         $conf = Config::first();
         $myData = Auth::user();
 
-        // get orderan data
-        $orderData = Orderan::where('user_id', $myData->iduser)->first();
-
         // get detail order
         // get orderId
         $myOrder = Orderan::where([['user_id', $myData->iduser], ['status', '!=', 9]])->get();
+        // if($myOrder->count() == 0) {
+        //     $myCart = "null";
+        // }else {
+        //     $myCart = DB::table('detail_order')
+        //                 ->where('order_id', $myOrder[0]->idorder)
+        //                 ->join('products', 'product_id', '=', 'products.idproduct')
+        //                 ->get();
+        // }
+
+        return view('orderan')->with(['config' => $conf, 'myData' => $myData, 'myOrder' => $myOrder]);
+    }
+    public function detailOrder($id) {
+        $conf = Config::first();
+        $myData = Auth::user();
+
+        // get detail order
+        // get orderId
+        $myOrder = Orderan::where([['idorder', $id], ['status', '!=', 9]])->get();
         if($myOrder->count() == 0) {
             $myCart = "null";
         }else {
@@ -36,6 +51,24 @@ class OrderanController extends Controller
                         ->get();
         }
 
-        return view('orderan')->with(['config' => $conf, 'myData' => $myData, 'myCart' => $myCart, 'myOrder' => $orderData]);
+        return view('detailOrder')->with(['config' => $conf, 'myData' => $myData, 'myCart' => $myCart, 'myOrder' => $myOrder]);
+    }
+    public function confirmationPage() {
+        $conf = Config::first();
+        $myData = Auth::user();
+        if($myData == "") {
+            $myData = "private";
+        }
+        $myOrder = Orderan::where([['user_id', $myData->iduser], ['status', '0']])->get();
+        return view('confirmation')->with(['config' => $conf, 'myData' => $myData, 'myOrder' => $myOrder]);
+    }
+    public function confirmation(Request $req) {
+        $id = $req->idorder;
+
+        $ord = Orderan::find($id);
+        $ord->status = 1;
+        $ord->save();
+
+        return redirect()->route('payment.success');
     }
 }

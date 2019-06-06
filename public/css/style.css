@@ -90,6 +90,11 @@ button.biru {
     color: #fff;
 }
 button.biru:hover { background-color: #2980b9; }
+button.biru:focus {
+    outline: none;
+    box-shadow: 1px 1px 5px 5px #2196f380;
+}
+
 button.biru-alt {
     background: none;
     color: #2196f3;
@@ -170,6 +175,7 @@ table td form { display: inline-block; }
 
 .teks-putih { color: #fff; }
 .teks-gelap { color: #444; }
+.teks-transparan { color: #777; }
 
 .ke-kanan { float: right; }
 .ke-kiri { float: left; }
@@ -229,6 +235,11 @@ table td form { display: inline-block; }
 .pr-2 { padding-right: 20px; }
 .pr-3 { padding-right: 30px; }
 .pr-4 { padding-right: 40px; }
+
+/* width */
+.lebar-100 { width: 100%; }
+.lebar-50 { width: 50%; }
+.lebar-25 { width: 25%; }
 
 /* display */
 .d-block { display: block; }

@@ -18,20 +18,27 @@
             @if($myData == "")
                 <li><a href="{{ route('login') }}"><button class="biru-alt">Login</button></a></li>
             @else
-                <li menu="ada">
-                    <a href="#"><button class="biru-alt">Halo, {{ $myData->nama }}</button></a>
-                    <ul class="sub-menu">
-                        <a href="{{ route('cart') }}"><li>Keranjang</li></a>
-                        <a href="/orderan-saya"><li>Pesanan</li></a>
-                        <a href="/profil/pengaturan"><li>Akun</li></a>
-                        <li>
-                            <form action="{{ route('logout') }}" method="get">
-                                {{ csrf_field() }}
-                                <button class="no-style">Logout</button>
-                            </form>
-                        </li>
-                    </ul>
-                </li>
+                @if($myData == "private")
+                    <script>
+                        let toLogin = "{{ route('user.login') }}"
+                        document.location = toLogin
+                    </script>
+                @else
+                    <li menu="ada">
+                        <a href="#"><button class="biru-alt">Halo, {{ $myData->nama }}</button></a>
+                        <ul class="sub-menu">
+                            <a href="{{ route('cart') }}"><li>Keranjang</li></a>
+                            <a href="/orderan-saya"><li>Pesanan</li></a>
+                            <a href="/profil/pengaturan"><li>Akun</li></a>
+                            <li>
+                                <form action="{{ route('logout') }}" method="get">
+                                    {{ csrf_field() }}
+                                    <button class="no-style">Logout</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
             @endif
         @endif
     </nav>

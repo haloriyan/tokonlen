@@ -57,6 +57,7 @@ class CartController extends Controller
             $ord->total = 0;
             $ord->tanggal = date('Y-m-d');
             $ord->status = 9;
+            $ord->bukti = '';
             
             $ord->save();
         }else {
