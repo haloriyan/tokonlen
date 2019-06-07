@@ -30,6 +30,7 @@ Route::get('/orderan-saya', 'OrderanController@mine')->name('user.orderan');
 Route::get('/order/{id}', 'OrderanController@detailOrder')->name('order.detail');
 Route::get('/cara-membayar', 'PaymentController@paymentPage')->name('payment.page');
 Route::get('/konfirmasi', 'OrderanController@confirmationPage')->name('confirmation.page');
+Route::post('/konfirmasi', 'PaymentController@confirmation')->name('confirmation.store');
 
 // user keranjang
 Route::get('/keranjang', 'CartController@index')->name('cart');

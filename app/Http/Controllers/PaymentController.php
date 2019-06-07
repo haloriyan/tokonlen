@@ -55,4 +55,7 @@ class PaymentController extends Controller
         $allCat = Payment::all();
         return response()->json($allCat);
     }
+    public function confirmation(Request $req) {
+        $id = $req->invoice;
+    }
 }

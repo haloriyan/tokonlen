@@ -20,12 +20,18 @@ function toIdr($angka) {
                     <button class="biru-alt lebar-100">Lihat orderan saya</button>
                 </a>
             @else
-                <div>Pilih Invoice :</div>
-                <select name="invoice" class="box mt-1">
-                    @foreach ($myOrder as $item)
-                        <option value="a">INV{{ $item->idorder }}</option>
-                    @endforeach
-                </select>
+                <form action="{{ route('confirmation.store') }}" method="POST">
+                    {{ csrf_field() }}
+                    <div>Pilih Invoice :</div>
+                    <select name="invoice" class="box mt-1">
+                        @foreach ($myOrder as $item)
+                            <option value="a">INV{{ $item->idorder }}</option>
+                        @endforeach
+                    </select>
+                    <div class="mt-2">Bukti Pembayaran :</div>
+                    <input type="file" class="box mt-1" name="bukti">
+                    <button class="biru-alt lebar-100 mt-2">Bayar</button>
+                </form>
             @endif
         </div>
     </div>
