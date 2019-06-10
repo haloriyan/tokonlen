@@ -33,6 +33,16 @@ class OrderanController extends Controller
         //                 ->get();
         // }
 
+        if($myData === "") {
+            // add orderan info
+            $ordData = Orderan::where('user_id', $myData->iduser)->get()->count();
+            $myData->orderan = $ordData;
+
+            // add cart info
+            $cartData = Orderan::where([['user_id', $myData->iduser], ['status', '9']])->get()->count();
+            $myData->keranjang = $cartData;
+        }
+
         return view('orderan')->with(['config' => $conf, 'myData' => $myData, 'myOrder' => $myOrder]);
     }
     public function detailOrder($id) {
@@ -53,14 +63,25 @@ class OrderanController extends Controller
 
         return view('detailOrder')->with(['config' => $conf, 'myData' => $myData, 'myCart' => $myCart, 'myOrder' => $myOrder]);
     }
-    public function confirmationPage() {
+    public function confirmationPage($id = NULL) {
         $conf = Config::first();
         $myData = Auth::user();
         if($myData == "") {
             $myData = "private";
         }
+
+        if($myData === "") {
+            // add orderan info
+            $ordData = Orderan::where('user_id', $myData->iduser)->get()->count();
+            $myData->orderan = $ordData;
+
+            // add cart info
+            $cartData = Orderan::where([['user_id', $myData->iduser], ['status', '9']])->get()->count();
+            $myData->keranjang = $cartData;
+        }
+
         $myOrder = Orderan::where([['user_id', $myData->iduser], ['status', '0']])->get();
-        return view('confirmation')->with(['config' => $conf, 'myData' => $myData, 'myOrder' => $myOrder]);
+        return view('confirmation')->with(['config' => $conf, 'myData' => $myData, 'myOrder' => $myOrder, 'toPay' => $id]);
     }
     public function confirmation(Request $req) {
         $id = $req->idorder;

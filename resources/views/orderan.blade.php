@@ -36,7 +36,9 @@ function toIdr($angka) {
                                     <a href="{{ route('order.detail', $item->idorder) }}">
                                         <button class="biru-alt">Detail</button>
                                     </a>
-                                    <button class="hijau-alt">Bayar</button>
+                                    <a href="{{ route('confirmation.page', $item->idorder) }}">
+                                        <button class="hijau-alt">Bayar</button>
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach

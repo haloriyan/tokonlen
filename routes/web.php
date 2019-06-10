@@ -29,7 +29,7 @@ Route::get('/produk/{id}', 'UserController@viewProduct')->name('product.view');
 Route::get('/orderan-saya', 'OrderanController@mine')->name('user.orderan');
 Route::get('/order/{id}', 'OrderanController@detailOrder')->name('order.detail');
 Route::get('/cara-membayar', 'PaymentController@paymentPage')->name('payment.page');
-Route::get('/konfirmasi', 'OrderanController@confirmationPage')->name('confirmation.page');
+Route::get('/konfirmasi/{id?}', 'OrderanController@confirmationPage')->name('confirmation.page');
 Route::post('/konfirmasi', 'PaymentController@confirmation')->name('confirmation.store');
 
 // user keranjang

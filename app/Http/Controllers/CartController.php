@@ -28,6 +28,16 @@ class CartController extends Controller
                         ->get();
         }
 
+        if($myData === "") {
+            // add orderan info
+            $ordData = Orderan::where('user_id', $myData->iduser)->get()->count();
+            $myData->orderan = $ordData;
+
+            // add cart info
+            $cartData = Orderan::where([['user_id', $myData->iduser], ['status', '9']])->get()->count();
+            $myData->keranjang = $cartData;
+        }
+
         return view('keranjang')->with(['config' => $conf, 'myData' => $myData, 'myCart' => $myCart]);
     }
     public function getProductPrice($id) {

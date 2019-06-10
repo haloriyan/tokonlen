@@ -7,6 +7,7 @@ use Auth;
 use Cookie;
 use App\User;
 use App\Config;
+use App\Orderan;
 use App\Product;
 
 class UserController extends Controller
@@ -29,12 +30,33 @@ class UserController extends Controller
         $prod = Product::all();
         $user = Auth::user();
 
+        if($user === "") {
+            // add orderan info
+            $ordData = Orderan::where([['user_id', $user->iduser], ['status', '0']])->get()->count();
+            $user->orderan = $ordData;
+            
+            // add cart info
+            $cartData = Orderan::where([['user_id', $user->iduser], ['status', '9']])->get()->count();
+            $user->keranjang = $cartData;
+        }
+
         return view('index')->with(['config' => $conf, 'products' => $prod, 'q' => '', 'myData' => $user]);
     }
     public function viewProduct($id) {
         $conf = Config::first();
         $user = Auth::user();
         $prod = Product::find($id);
+
+        if($user === "") {
+            // add orderan info
+            $ordData = Orderan::where([['user_id', $user->iduser], ['status', '0']])->get()->count();
+            $user->orderan = $ordData;
+
+            // add cart info
+            $cartData = Orderan::where([['user_id', $user->iduser], ['status', '9']])->get()->count();
+            $user->keranjang = $cartData;
+        }
+        
         return view('product')->with(['config' => $conf, 'product' => $prod, 'myData' => $user]);
     }
     public function loginPage() {
@@ -62,6 +84,17 @@ class UserController extends Controller
         if($q == "") {
             return redirect()->route('user.index');
         }
+
+        if($myData === "") {
+            // add orderan info
+            $ordData = Orderan::where('user_id', $myData->iduser)->get()->count();
+            $myData->orderan = $ordData;
+
+            // add cart info
+            $cartData = Orderan::where([['user_id', $myData->iduser], ['status', '9']])->get()->count();
+            $myData->keranjang = $cartData;
+        }
+
         $prod = Product::where('title', 'LIKE', '%'.$q.'%')->get();
         return view('index')->with(['config' => $conf, 'products' => $prod, 'q' => $q, 'myData' => $myData]);
     }
@@ -119,6 +152,17 @@ class UserController extends Controller
         $myData = Auth::user();
         $conf = Config::first();
         $notif = Cookie::get('notif');
+
+        if($myData === "") {
+            // add orderan info
+            $ordData = Orderan::where('user_id', $myData->iduser)->get()->count();
+            $myData->orderan = $ordData;
+
+            // add cart info
+            $cartData = Orderan::where([['user_id', $myData->iduser], ['status', '9']])->get()->count();
+            $myData->keranjang = $cartData;
+        }
+
         return view('user.settings')->with(['myData' => $myData, 'config' => $conf, 'notif' => $notif]);
     }
     public function saveSettings(Request $req) {

@@ -57,5 +57,8 @@ class PaymentController extends Controller
     }
     public function confirmation(Request $req) {
         $id = $req->invoice;
+
+        $fileName = $req->file('bukti')->getClientOriginalName();
+        $upl = $req->file('bukti')->move('storage/evidence/', $fileName);
     }
 }
