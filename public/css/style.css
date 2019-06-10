@@ -246,6 +246,12 @@ table td form { display: inline-block; }
 .d-none { display: none; }
 .d-inline-block { display: inline-block; }
 
+/* border */
+.bordered { border: 1px solid #ddd; }
+.border-white { border: 1px solid #fff; }
+.border-bottom { border-bottom: 1px solid #ddd; }
+.border-bottom-2 { border-bottom: 2px solid #ddd; }
+
 @media(max-width: 480px) {
     .bag { display: block; }
     .bag.bag-1,

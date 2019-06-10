@@ -28,7 +28,7 @@ class CartController extends Controller
                         ->get();
         }
 
-        if($myData === "") {
+        if($myData != "") {
             // add orderan info
             $ordData = Orderan::where('user_id', $myData->iduser)->get()->count();
             $myData->orderan = $ordData;

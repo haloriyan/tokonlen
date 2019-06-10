@@ -22,23 +22,36 @@ function toIdr($angka) {
                 <table>
                     <thead>
                         <tr>
-                            <th style="width: 50%;">No. Invoice</th>
+                            <th style="width: 40%;">No. Invoice</th>
                             <th>Total</th>
+                            <td>Status</td>
                             <th style="width: 25%;"></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($myOrder as $item)
+                            @php
+                                $payButton = "";
+                                if($item->status == 2) {
+                                    $displayedStatus = "Dikirim";
+                                }else if($item->status == 3) {
+                                    $displayedStatus = "Dibayar";
+                                }else if($item->status == 0 ) {
+                                    $displayedStatus = "Belum dibayar";
+                                    $payButton = "<a href='". route('confirmation.page', $item->idorder)."'>
+                                        <button class='hijau-alt'>Bayar</button>
+                                    </a>";
+                                }
+                            @endphp
                             <tr>
                                 <td>INV{{ $item->idorder }}</td>
                                 <td>{{ toIdr($item->total) }}</td>
+                                <td>{{ $displayedStatus }}</td>
                                 <td>
                                     <a href="{{ route('order.detail', $item->idorder) }}">
                                         <button class="biru-alt">Detail</button>
                                     </a>
-                                    <a href="{{ route('confirmation.page', $item->idorder) }}">
-                                        <button class="hijau-alt">Bayar</button>
-                                    </a>
+                                    {!! $payButton !!}
                                 </td>
                             </tr>
                         @endforeach

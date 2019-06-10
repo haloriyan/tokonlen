@@ -30,7 +30,7 @@ class UserController extends Controller
         $prod = Product::all();
         $user = Auth::user();
 
-        if($user === "") {
+        if($user != "") {
             // add orderan info
             $ordData = Orderan::where([['user_id', $user->iduser], ['status', '0']])->get()->count();
             $user->orderan = $ordData;
@@ -47,7 +47,7 @@ class UserController extends Controller
         $user = Auth::user();
         $prod = Product::find($id);
 
-        if($user === "") {
+        if($user != "") {
             // add orderan info
             $ordData = Orderan::where([['user_id', $user->iduser], ['status', '0']])->get()->count();
             $user->orderan = $ordData;
@@ -85,7 +85,7 @@ class UserController extends Controller
             return redirect()->route('user.index');
         }
 
-        if($myData === "") {
+        if($myData != "") {
             // add orderan info
             $ordData = Orderan::where('user_id', $myData->iduser)->get()->count();
             $myData->orderan = $ordData;
@@ -153,7 +153,7 @@ class UserController extends Controller
         $conf = Config::first();
         $notif = Cookie::get('notif');
 
-        if($myData === "") {
+        if($myData != "") {
             // add orderan info
             $ordData = Orderan::where('user_id', $myData->iduser)->get()->count();
             $myData->orderan = $ordData;

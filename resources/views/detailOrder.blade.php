@@ -43,7 +43,7 @@ function toIdr($angka) {
                     </tbody>
                 </table>
                 <div class="rata-tengah mt-4">
-                    <a href="{{ route('confirmation.page') }}">
+                    <a href="{{ route('confirmation.page', $item->order_id) }}">
                         <button class="biru-alt">Bayar</button>
                     </a>
                 </div>

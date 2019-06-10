@@ -43,6 +43,10 @@ Route::get('/orderan/{id}', 'OrderanController@checkout')->name('order.checkout'
 // Admin
 Route::get('/admin/produk', 'AdminController@productPage')->name('admin.product');
 Route::get('/admin/kategori', 'AdminController@category')->name('admin.category');
+Route::get('/admin/konfirmasi', 'AdminController@confirmationPage')->name('admin.confirmation');
+Route::get('/admin/bukti/{id}', 'PaymentController@showEvidence')->name('evidence');
+
+Route::post('/admin/konfirmasi/{id}', 'PaymentController@paymentConfirmation')->name('payment.confirmation');
 
 Route::get('/admin/produk/tambah', 'ProductController@create')->name('product.create');
 Route::post('/admin/produk/store', 'ProductController@store')->name('product.store');

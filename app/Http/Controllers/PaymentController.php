@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Config;
+use App\Orderan;
 use App\Payment;
 use Illuminate\Http\Request;
 
@@ -60,5 +61,26 @@ class PaymentController extends Controller
 
         $fileName = $req->file('bukti')->getClientOriginalName();
         $upl = $req->file('bukti')->move('storage/evidence/', $fileName);
+
+        $ord = Orderan::find($id);
+        $ord->status = 3;
+        $ord->bukti = $fileName;
+        $ord->save();
+
+        return redirect()->route('user.orderan');
+    }
+    public function showEvidence($id) {
+        $ord = Orderan::find($id);
+        $bukti = $ord->bukti;
+
+        echo "<img src='".asset('storage/evidence/'.$bukti)."'>";
+    }
+    public function paymentConfirmation($id, Request $req) {
+        $ord = Orderan::find($id);
+
+        $ord->status = 2;
+        $ord->save();
+
+        return redirect()->route('admin.confirmation');
     }
 }

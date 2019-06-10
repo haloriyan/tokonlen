@@ -27,17 +27,15 @@ function toIdr($angka) {
                         @foreach ($myOrder as $item)
                             @php
                                 $selected = "";
-                            @endphp
-                            @if($item->idorder == $toPay)
-                                @php
+                                if($item->idorder == $toPay) {
                                     $selected = "selected";
-                                @endphp
-                            @endif
-                            <option value="{{ $item->idorder }}" selected="{{ $selected }}">INV{{ $item->idorder }}</option>
+                                }
+                            @endphp
+                            <option value="{{ $item->idorder }}" {{ $selected }}>INV{{ $item->idorder }}</option>
                         @endforeach
                     </select>
                     <div class="mt-2">Bukti Pembayaran :</div>
-                    <input type="file" class="box mt-1" name="bukti">
+                    <input type="file" class="box mt-1" name="bukti" required>
                     <button class="biru-alt lebar-100 mt-2">Bayar</button>
                 </form>
             @endif

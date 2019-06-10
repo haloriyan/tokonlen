@@ -28,12 +28,8 @@
                         <a href="#"><button class="biru-alt">Halo, {{ $myData->nama }}</button></a>
                         <ul class="sub-menu">
                             @php
-                                if($myData->keranjang == "") {
-                                    $myCart = "0";
-                                }
-                                if($myData->orderan == "") {
-                                    $myOrderan = "0";
-                                }
+                                $myCart = ($myData->keranjang == "") ? "0" : $myData->keranjang;
+                                $myOrderan = ($myData->orderan == "") ? "0" : $myData->orderan;
                             @endphp
                             <a href="{{ route('cart') }}"><li>Keranjang <b>({{ $myCart }})</b></li></a>
                             <a href="/orderan-saya"><li>Orderan <b>({{ $myOrderan }})</b></li></a>
