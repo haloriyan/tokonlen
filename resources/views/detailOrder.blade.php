@@ -1,5 +1,7 @@
 @extends('layouts.user')
 
+@inject('review', 'App\Http\Controllers\ReviewController')
+
 @section('title', 'Detail Order')
 
 @php
@@ -25,6 +27,9 @@ function toIdr($angka) {
                             <th style="width: 60%;">Produk</th>
                             <th>Qty</th>
                             <th>Total</th>
+                            @if ($myOrder->status == 1)
+                                <th></th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -33,6 +38,13 @@ function toIdr($angka) {
                                 <td><a href="{{ route('product.view', $item->idproduct) }}" class="teks-gelap">{{ $item->title }}</a></td>
                                 <td>{{ $item->qty }}</td>
                                 <td>{{ toIdr($item->total) }}</td>
+                                @if ($review::canIWriteReview($myData->iduser, $item->idproduct))
+                                    <td>
+                                        <a href="{{ route('review.write', $item->idproduct) }}">
+                                            <button class="hijau-alt"><i class="fas fa-edit"></i> Ulas</button>
+                                        </a>
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                         <tr>
@@ -43,9 +55,15 @@ function toIdr($angka) {
                     </tbody>
                 </table>
                 <div class="rata-tengah mt-4">
-                    <a href="{{ route('confirmation.page', $item->order_id) }}">
-                        <button class="biru-alt">Bayar</button>
-                    </a>
+                    @if ($myOrder->status == 0)
+                        <a href="{{ route('confirmation.page', $item->order_id) }}">
+                            <button class="biru-alt">Bayar</button>
+                        </a>
+                    @else
+                        <a href="#" onclick="history.back(-1)">
+                            <button>Kembali</button>
+                        </a>
+                    @endif
                 </div>
             @endif
         </div>

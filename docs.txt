@@ -1,0 +1,6 @@
+Order status :
+0 => Belum bayar
+3 => Dibayar
+2 => Dikirim
+1 => Diterima
+9 => Cart

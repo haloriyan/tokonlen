@@ -26,6 +26,7 @@ Route::get('/profil/pengaturan', 'UserController@settings')->name('user.settings
 Route::post('/profil/pengaturan', 'UserController@saveSettings')->name('user.settings.save');
 Route::post('/register', 'UserController@register')->name('register');
 Route::get('/produk/{id}', 'UserController@viewProduct')->name('product.view');
+Route::get('/produk/{id}#tulis-ulasan', 'UserController@viewProduct')->name('review.write');
 Route::get('/orderan-saya', 'OrderanController@mine')->name('user.orderan');
 Route::get('/order/{id}', 'OrderanController@detailOrder')->name('order.detail');
 Route::get('/cara-membayar', 'PaymentController@paymentPage')->name('payment.page');
@@ -79,7 +80,5 @@ Route::post('/admin/payment/{id}/update', 'PaymentController@update')->name('pay
 Route::post('/admin/payment/delete', 'PaymentController@delete')->name('payment.delete');
 Route::get('/admin/pembayaran/{id}/ubah', 'PaymentController@edit')->name('payment.edit');
 
-Route::get('/curl', 'ProductController@curel');
-Route::get('/test', function() {
-    return "hello";
-});
+// Route::get('/test/{user_id}/{product_id}', 'ReviewController@canIWriteReview');
+Route::get('/test', 'ReviewController@testFunc');

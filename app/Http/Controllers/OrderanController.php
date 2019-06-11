@@ -51,12 +51,12 @@ class OrderanController extends Controller
 
         // get detail order
         // get orderId
-        $myOrder = Orderan::where([['idorder', $id], ['status', '!=', 9]])->get();
+        $myOrder = Orderan::where([['idorder', $id], ['status', '!=', 9]])->first();
         if($myOrder->count() == 0) {
             $myCart = "null";
         }else {
             $myCart = DB::table('detail_order')
-                        ->where('order_id', $myOrder[0]->idorder)
+                        ->where('order_id', $myOrder->idorder)
                         ->join('products', 'product_id', '=', 'products.idproduct')
                         ->get();
         }

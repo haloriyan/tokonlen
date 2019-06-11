@@ -6,7 +6,7 @@ function toIdr($angka) {
 }
 @endphp
 
-@section('title', 'Produk')
+@section('title', $product->title)
 
 @section('content')
 <div class="container" style="top: 150px;">
