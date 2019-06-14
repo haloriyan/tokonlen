@@ -116,6 +116,8 @@ class UserController extends Controller
         $u->email = $email;
         $u->password = bcrypt('facebook');
         $u->alamat = '';
+        $u->kota = '';
+        $u->provinsi = '';
         $u->save();
 
         return redirect()->route('user.index');
@@ -130,6 +132,8 @@ class UserController extends Controller
         $u->email = $email;
         $u->password = bcrypt('google');
         $u->alamat = '';
+        $u->kota = '';
+        $u->provinsi = '';
         $u->save();
 
         return redirect()->route('login.google');

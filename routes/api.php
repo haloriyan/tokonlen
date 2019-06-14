@@ -20,3 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/user/{email}', 'UserController@cekUser')->name('api.cekUser');
 
 Route::get('/product/all', 'ProductController@all');
+
+// Raja ongkir
+Route::get('/ongkir/provinsi/{id?}', 'RajaongkirController@getProvince')->middleware('cors');
+Route::get('/ongkir/kota/{id?}', 'RajaongkirController@getCity')->middleware('cors');

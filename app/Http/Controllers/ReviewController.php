@@ -35,12 +35,16 @@ class ReviewController extends Controller
         }
     }
     public function testFunc() {
-        echo $this->canIWriteReview('9306', '5');
-        exit();
-        if($this->canIWriteReview('9302', '5')) {
-            echo "true";
-        }else {
-            echo "false";
-        }
+        $endpoint = "https://api.rajaongkir.com/starter/province";
+
+        $client = new \GuzzleHttp\Client();
+
+        $res = $client->request('GET', $endpoint, [
+            'headers' => [
+                'key' => 'c568e39b6403b4bfa2f41284c2f85d30'
+            ]
+        ]);
+
+        $allProv = $res->getBody()->getContents();
     }
 }

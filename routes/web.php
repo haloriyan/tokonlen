@@ -80,5 +80,4 @@ Route::post('/admin/payment/{id}/update', 'PaymentController@update')->name('pay
 Route::post('/admin/payment/delete', 'PaymentController@delete')->name('payment.delete');
 Route::get('/admin/pembayaran/{id}/ubah', 'PaymentController@edit')->name('payment.edit');
 
-// Route::get('/test/{user_id}/{product_id}', 'ReviewController@canIWriteReview');
 Route::get('/test', 'ReviewController@testFunc');
