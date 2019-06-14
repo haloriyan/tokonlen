@@ -175,6 +175,8 @@ class UserController extends Controller
         $u = User::find($myId);
         $u->nama = $req->nama;
         $u->alamat = $req->alamat;
+        $u->provinsi = $req->provinsi;
+        $u->kota = $req->kota;
 
         $u->save();
 

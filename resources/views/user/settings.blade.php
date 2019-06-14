@@ -2,6 +2,7 @@
 
 @section('title', 'Pengaturan Profil')
 
+
 @section('content')
 <div class="container rata-tengah" style="top: 120px;">
     <div class="bag-6 d-inline-block rata-tengah">
@@ -16,18 +17,18 @@
                 <form action="{{ route('user.settings.save') }}" method="post">
                     {{ csrf_field() }}
                     <div>Nama :</div>
-                    <input type="text" class="box mt-1 mb-3" name="nama" value="{{ $myData->nama }}">
+                    <input type="text" class="box mt-1 mb-3" name="nama" value="{{ $myData->nama }}" required>
                     <div>Alamat :</div>
-                    <textarea name="alamat" class="box mt-2 mb-3">{{ $myData->alamat }}</textarea>
+                    <textarea name="alamat" class="box mt-2 mb-3" required>{{ $myData->alamat }}</textarea>
                     <div class="bag bag-5">
                         Provinsi :
-                        <select name="provinsi" id="prov" class="box" onchange="showCity(this.value)">
-                            <span id="hehe"></span>
+                        <select name="provinsi" id="prov" class="box" onchange="showCity(this.value)" required>
+                            {{--  --}}
                         </select>
                     </div>
                     <div class="bag bag-5">
                         Kota :
-                        <select name="kota" id="city" class="box">
+                        <select name="kota" id="city" class="box" required>
                             {{--  --}}
                         </select>
                     </div>
@@ -50,6 +51,11 @@
                 let optProv = document.createElement('option')
                 optProv.innerHTML = res.province
                 optProv.setAttribute('value', res.province_id)
+
+                if({{ $myData->provinsi }} == res.province_id ) {
+                    optProv.setAttribute('selected', 'selected')
+                }
+
                 document.querySelector("#prov").appendChild(optProv)
             })
         })
@@ -63,10 +69,18 @@
                 let optCity = document.createElement('option')
                 optCity.innerHTML = res.city_name
                 optCity.setAttribute('value', res.city_id)
+
+                if({{ $myData->kota }} == res.city_id) {
+                    optCity.setAttribute('selected', 'selected')
+                }
+
                 document.querySelector("#city").appendChild(optCity)
             })
         })
     }
     getProvince()
+    if({{ $myData->provinsi }} != "") {
+        showCity({{ $myData->provinsi }})
+    }
 </script>
 @endsection
