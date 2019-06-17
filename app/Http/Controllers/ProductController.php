@@ -73,12 +73,9 @@ class ProductController extends Controller
 
         return redirect()->route('admin.product');
     }
-    public function curel() {
-        $req = new Client([
-            'base_uri' => 'http://localhost:8000'
-        ]);
-
-        $res = $req->request('GET', 'test');
-        echo $res;
+    public function ApiGetImages($id) {
+        $imgs = Images::where('product_id', $id)->get();
+        
+        return response()->json($imgs);
     }
 }

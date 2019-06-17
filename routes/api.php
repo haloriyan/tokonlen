@@ -24,3 +24,10 @@ Route::get('/product/all', 'ProductController@all');
 // Raja ongkir
 Route::get('/ongkir/provinsi/{id?}', 'RajaongkirController@getProvince')->middleware('cors');
 Route::get('/ongkir/kota/{id?}', 'RajaongkirController@getCity')->middleware('cors');
+
+Route::get('/product/{id}/images', 'ProductController@ApiGetImages')->name('api.getProductImages');
+
+Route::post('/images/add', 'ImagesController@store')->name('api.addProductImage');
+Route::post('/images/delete', 'ImagesController@delete')->name('api.deleteProductImage');
+
+Route::get('/test', 'ImagesController@delete');
