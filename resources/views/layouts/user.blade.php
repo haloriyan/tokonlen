@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ asset('fw/fontawesome-all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+    @yield('head.dependencies')
 </head>
 <body>
 

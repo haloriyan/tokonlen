@@ -1,0 +1,36 @@
+.wrapperImageDisplayer {
+    position: fixed;
+    top: 0px;left: 0px;right: 0px;bottom: 0px;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 5;
+    display: none;
+    overflow: auto;
+}
+.wrapperImageDisplayer .containerImageDisplayer .header {
+    background-color: #00000095;
+    color: #fff;
+    line-height: 60px;
+    margin-bottom: 50px;
+    position: fixed;
+    top: 0px;left: 0px;right: 0px;
+}
+.wrapperImageDisplayer .containerImageDisplayer .header h4 {
+    display: inline-block;
+    margin: 0;
+    margin-left: 5%;
+}
+.wrapperImageDisplayer .containerImageDisplayer .header #close {
+    float: right;
+    margin-right: 5%;
+    cursor: pointer;
+}
+.wrapperImageDisplayer .containerImageDisplayer .content {
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 70px;
+}
+.wrapperImageDisplayer .containerImageDisplayer .content #displayedImage {
+    width: 50%;
+}
+.show { display: block; }
+.hide { display: none; }

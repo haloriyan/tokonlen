@@ -8,6 +8,10 @@ function $(select) {
 	let ret = []
 	// Selecting a dom
 	let sel = document.querySelectorAll(select)
+	if(!sel) {
+		sel = document.querySelector(select)
+		console.log('error')
+	}
 	sel.klik = function(callback) {
 		// Click Event
 		sel.forEach(res => {
@@ -22,7 +26,6 @@ function $(select) {
 			})
 		}else {
 			sel.forEach(res => {
-				// ret.push(res.setAttribute(attr, val))
 				res.setAttribute(attr, val)
 			})
 		}
@@ -100,6 +103,11 @@ function $(select) {
 				res.addEventListener('change', callback)
 			})
 		}
+	}
+	sel.append = function(child) {
+		sel.forEach(res => {
+			document.querySelector(select).appendChild(child)
+		})
 	}
 	if(ret.length !== 0) {
 		sel = ret

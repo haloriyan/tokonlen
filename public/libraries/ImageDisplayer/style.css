@@ -1,0 +1,13 @@
+#parent {
+    background-color: #fff;
+    box-shadow: 1px 1px 5px 1px #ddd;
+    white-space: nowrap;
+    overflow: auto;
+}
+#parent img {
+    height: 200px;
+}
+
+::-webkit-scrollbar {
+    height: 1px;
+}

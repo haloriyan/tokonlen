@@ -61,9 +61,10 @@
         })
     }
     function showCity(idProvince) {
-        $("#city").tulis("")
+        $("#city").tulis("<option>Loading...</option>")
         axios.get('{{ env("APP_URL") }}:8000/api/ongkir/kota/'+idProvince)
         .then(res => {
+            $("#city").tulis("")
             const data = res.data.rajaongkir.results
             data.forEach(res => {
                 let optCity = document.createElement('option')

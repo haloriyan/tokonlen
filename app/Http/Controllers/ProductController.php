@@ -35,6 +35,7 @@ class ProductController extends Controller
             $img->save();
         }
 
+        $p->idproduct = $idproduct;
         $p->title = $req->title;
         $p->description = $req->description;
         $p->stock = $req->stock;

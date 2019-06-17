@@ -98,6 +98,16 @@
     height: 200px;
 }
 
+.carousel {
+    /* background-color: red; */
+    white-space: nowrap;
+}
+.carousel .display {
+    display: inline-block;
+    height: 200px;
+    margin: -2px;
+}
+
 @media (max-width: 480px) {
     .pencarian {
         left: 5%;right: 5%;

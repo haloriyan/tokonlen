@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Cookie;
 use App\User;
+use App\Images;
 use App\Config;
 use App\Orderan;
 use App\Product;
@@ -56,8 +57,10 @@ class UserController extends Controller
             $cartData = Orderan::where([['user_id', $user->iduser], ['status', '9']])->get()->count();
             $user->keranjang = $cartData;
         }
+
+        $productImages = Images::where('product_id', $prod->idproduct)->get();
         
-        return view('product')->with(['config' => $conf, 'product' => $prod, 'myData' => $user]);
+        return view('product')->with(['config' => $conf, 'product' => $prod, 'myData' => $user, 'images' => $productImages]);
     }
     public function loginPage() {
         $conf = Config::first();

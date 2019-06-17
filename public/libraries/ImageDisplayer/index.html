@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Image</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="ImageDisplayer.css">
+</head>
+<body>
+
+<div class="container" id="parent">
+    <img src="img/a.jpg">
+    <img src="img/b.jpg">
+    <img src="img/c.jpg">
+    <img src="img/d.jpg">
+    <img src="img/e.jpg">
+    <img src="img/f.jpg">
+    <img src="img/g.jpg">
+    <img src="img/h.jpg">
+    <img src="img/i.jpg">
+</div>
+
+<div class="wrapperImageDisplayer">
+    <div class="containerImageDisplayer">
+        <div class="header">
+            <h4 id="fileName">s</h4>
+            <div id="close">X</div>
+        </div>
+        <div class="content">
+            <img src="#" id="displayedImage">
+        </div>
+    </div>
+</div>
+
+<script src="display.js"></script>
+<script>
+    let app = new ImageDisplayer({
+        selector: '#parent'
+    })
+</script>
+
+</body>
+</html>

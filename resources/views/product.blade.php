@@ -8,6 +8,28 @@ function toIdr($angka) {
 
 @section('title', $product->title)
 
+@section('head.dependencies')
+    <link rel="stylesheet" href="{{ asset('libraries/ImageDisplayer/ImageDisplayer.css') }}">
+    <style>
+        .carousel {
+            background-color: #fff;
+            box-shadow: 1px 1px 5px 1px #ddd;
+            white-space: nowrap;
+            overflow: auto;
+        }
+        .carousel img {
+            height: 200px;
+            cursor: pointer;
+            filter: blur(2px);
+        }
+        .carousel img:hover{ filter: blur(0px); }
+
+        .carousel::-webkit-scrollbar {
+            height: 1px;
+        }
+    </style>
+@endsection
+
 @section('content')
 <div class="container" style="top: 150px;">
     @if($product == "")
@@ -17,14 +39,10 @@ function toIdr($angka) {
             </div>
         </div>
     @else
-        <div class="bag bag-10">
-            {{--  --}}
-        </div>
-        <div class="bag bag-6 bg-putih bayangan-5 rounded">
-            <div class="wrap">
-                <h2>{{ $product->title }}</h2>
-                <p>{{ $product->description }}</p>
-            </div>
+        <div class="bag bag-6 carousel">
+            @foreach ($images as $item)
+            <img src="{{ asset('/storage/uploaded/'. $item->image) }}" class="display">
+            @endforeach
         </div>
         <div class="bag bag-1"></div>
         <div class="bag bag-3 bg-putih bayangan-5 rounded">
@@ -48,9 +66,26 @@ function toIdr($angka) {
                 @endif
             </div>
         </div>
+        <div class="bag bag-10 bg-putih bayangan-5 rounded">
+            <div class="wrap">
+                <h2>{{ $product->title }}</h2>
+                <p>{{ $product->description }}</p>
+            </div>
+        </div>
         <div class="bag bag-10 bg-putih bayangan-5 rounded mt-4">
             <div class="wrap">
                 <h2>Ulasan</h2>
+            </div>
+        </div>
+        <div class="wrapperImageDisplayer">
+            <div class="containerImageDisplayer">
+                <div class="header">
+                    <h4 id="fileName">s</h4>
+                    <div id="close">X</div>
+                </div>
+                <div class="content">
+                    <img src="#" id="displayedImage">
+                </div>
             </div>
         </div>
     @endif
@@ -58,6 +93,7 @@ function toIdr($angka) {
 @endsection
 
 @section('javascript')
+<script src="{{ asset('libraries/ImageDisplayer/display.js') }}"></script>
 <script>
     let price = {{ $product->price }}
     function getQty() {
@@ -85,5 +121,13 @@ function toIdr($angka) {
     }
 
     calcPrice(1)
+
+    let ImgDsplyr = new ImageDisplayer({
+        selector: '.carousel'
+    })
+    
 </script>
+{{-- @foreach ($images as $item)
+<img src="{{ asset('/storage/uploaded/'. $item->image) }}" class="display">
+@endforeach --}}
 @endsection

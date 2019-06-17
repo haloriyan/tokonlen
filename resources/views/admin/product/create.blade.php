@@ -52,7 +52,7 @@ function changeInputFile(that) {
     input.setAttribute('class', 'box')
     input.setAttribute('onchange', 'changeInputFile(this)')
     input.setAttribute('name', 'gambar[]')
-    $("#appearInput").appendChild(input)
+    $("#appearInput").append(input)
 }
 </script>
 @endsection
