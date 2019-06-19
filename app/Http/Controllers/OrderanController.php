@@ -10,9 +10,23 @@ use Illuminate\Http\Request;
 
 class OrderanController extends Controller
 {
-    public function checkout($id) {
+    public function getPriceFromShipping($str) {
+        $ret = preg_match("/\((.*?)\)/", $str, $arr);
+        return $arr;
+    }
+    public function getShippingName($shipping, $price) {
+        $e = explode($price, $shipping);
+        return $e[0];
+    }
+    public function checkout($id, Request $req) {
+        $ship = $req->shipping;
+        $shippingPrice = $this->getPriceFromShipping($ship);
+        $shippingName = $this->getShippingName($ship, $shippingPrice[0]);
+
         $ord = Orderan::find($id);
         $ord->status = 0;
+        $ord->shipping = $shippingName;
+        $ord->shipping_price = $shippingPrice[1];
         $ord->save();
 
         return redirect()->route('user.orderan');

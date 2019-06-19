@@ -51,7 +51,7 @@ function toIdr($angka) {
                             @endphp
                             <tr>
                                 <td>INV{{ $item->idorder }}</td>
-                                <td>{{ toIdr($item->total) }}</td>
+                                <td>{{ toIdr($item->total + $item->shipping_price) }}</td>
                                 <td>{{ $displayedStatus }}</td>
                                 <td>
                                     <a href="{{ route('order.detail', $item->idorder) }}">

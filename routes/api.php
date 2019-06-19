@@ -24,6 +24,7 @@ Route::get('/product/all', 'ProductController@all');
 // Raja ongkir
 Route::get('/ongkir/provinsi/{id?}', 'RajaongkirController@getProvince')->middleware('cors');
 Route::get('/ongkir/kota/{id?}', 'RajaongkirController@getCity')->middleware('cors');
+Route::post('/ongkir/cost', 'RajaongkirController@getCost')->middleware('cors')->name('ro.getCost');
 
 Route::get('/product/{id}/images', 'ProductController@ApiGetImages')->name('api.getProductImages');
 

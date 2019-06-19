@@ -10,6 +10,7 @@ use App\Product;
 use App\Orderan;
 use App\DetailOrder;
 use Illuminate\Http\Request;
+use \App\Http\Controllers\RajaongkirController as RajaOngkir;
 
 class CartController extends Controller
 {
@@ -37,6 +38,13 @@ class CartController extends Controller
             $cartData = Orderan::where([['user_id', $myData->iduser], ['status', '9']])->get()->count();
             $myData->keranjang = $cartData;
         }
+
+        // $ong = new RajaOngkir;
+        // $ongkirData = $ong->getCost(444, 444, 100, "pos");
+
+        // $ongkir = json_decode($ongkirData, true);
+        // $resOngkir = $ongkir['rajaongkir']['results'][0];
+        // $resOngkir = json_encode($resOngkir);
 
         return view('keranjang')->with(['config' => $conf, 'myData' => $myData, 'myCart' => $myCart]);
     }

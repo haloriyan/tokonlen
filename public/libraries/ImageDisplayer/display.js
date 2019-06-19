@@ -33,7 +33,7 @@ class ImageDisplayer {
         this.setSrc(src)
     }
     setName(name) {
-        this.select("#fileName").innerHTML = name
+        this.select("#fileName").innerHTML = 'Product Image'
     }
     setSrc(src) {
         this.select("#displayedImage").setAttribute('src', src)

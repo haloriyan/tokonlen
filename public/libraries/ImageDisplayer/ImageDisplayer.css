@@ -18,6 +18,8 @@
     display: inline-block;
     margin: 0;
     margin-left: 5%;
+    width: 60%;
+    max-width: 60%;
 }
 .wrapperImageDisplayer .containerImageDisplayer .header #close {
     float: right;
@@ -34,3 +36,8 @@
 }
 .show { display: block; }
 .hide { display: none; }
+
+@media (max-width: 480px) {
+    .wrapperImageDisplayer .containerImageDisplayer .content { margin-top: 200px; }
+    .wrapperImageDisplayer .containerImageDisplayer .content #displayedImage { width: 80%; }
+}

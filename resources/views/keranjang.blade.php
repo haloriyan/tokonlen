@@ -43,15 +43,23 @@ function toIdr($angka) {
                             </tr>
                         @endforeach
                         <tr>
-                            <td>Sub total</td>
+                            <td colspan="2">Shipping</td>
+                            <td colspan="2">
+                                <form action="{{ route('order.checkout', $myCart[0]->order_id) }}" method="get" class="d-inline-block" id="formCheckout">
+                                <select name="shipping" id="shipping" class="box" required>
+                                    <option value="">Pilih shipping...</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
                             <td>{{ $myCart->sum('qty') }}</td>
                             <td colspan="2">{{ toIdr($myCart->sum('total')) }}</td>
                         </tr>
                     </tbody>
                 </table>
                 <div class="rata-tengah mt-4">
-                    <a href="{{ route('user.index') }}"><button class="hijau-alt">Belanja lainnya</button></a>
-                    <form action="{{ route('order.checkout', $myCart[0]->order_id) }}" method="get" class="d-inline-block">
+                    <a href="{{ route('user.index') }}"><button type="button" class="hijau-alt">Belanja lainnya</button></a>
                         {{ csrf_field() }}
                         <button class="biru-alt">Lanjut checkout</button>
                     </form>
@@ -60,4 +68,46 @@ function toIdr($angka) {
         </div>
     </div>
 </div>
+@endsection
+
+@section('javascript')
+<script src="{{ asset('js/axios.min.js') }}"></script>
+<script>
+    function magicElement(properties) {
+        let dom = document.createElement(properties.type)
+        properties.attr.forEach(res => {
+            // console.log(Object.keys(res))
+            let key = Object.keys(res)
+            let val = Object.values(res)
+            dom.setAttribute(key, val)
+        })
+        if(properties.html !== undefined) {
+            dom.innerHTML = properties.html
+        }
+        document.querySelector(properties.parent).appendChild(dom)
+    }
+    function getOngkirData() {
+        let data = new FormData()
+        data.append('origin', '444')
+        data.append('destination', '444')
+        data.append('weight', 100)
+        data.append('courier', 'pos')
+
+        axios.post("{{ route('ro.getCost') }}", data)
+        .then(res => {
+            const data = res.data.rajaongkir.results[0]
+            data.costs.forEach(res => {
+                magicElement({
+                    type: 'option',
+                    attr: [
+                        {"value": "POS " + res.service + " (" + res.cost[0].value + ")"}
+                    ],
+                    html: "POS " + res.service + " (" + res.cost[0].value + ")",
+                    parent: '#shipping'
+                })
+            })
+        })
+    }
+    getOngkirData()
+</script>
 @endsection

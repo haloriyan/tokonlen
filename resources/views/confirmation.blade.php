@@ -36,7 +36,10 @@ function toIdr($angka) {
                     </select>
                     <div class="mt-2">Bukti Pembayaran :</div>
                     <input type="file" class="box mt-1" name="bukti" required>
-                    <button class="biru-alt lebar-100 mt-2">Bayar</button>
+                    <button class="biru lebar-100 mt-2">Bayar</button>
+                    <a href="{{ route('payment.page') }}">
+                        <button type="button" class="biru-alt lebar-100 mt-2">Lihat cara membayar</button>
+                    </a>
                 </form>
             @endif
         </div>

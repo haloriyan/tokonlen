@@ -48,9 +48,15 @@ function toIdr($angka) {
                             </tr>
                         @endforeach
                         <tr>
-                            <td>Sub total</td>
+                            <td colspan="2">Shipping fee</td>
+                            <td colspan="2">
+                                {{ toIdr($myOrder->shipping_price) }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
                             <td>{{ $myCart->sum('qty') }}</td>
-                            <td colspan="2">{{ toIdr($myCart->sum('total')) }}</td>
+                            <td colspan="2">{{ toIdr($myCart->sum('total') + $myOrder->shipping_price ) }}</td>
                         </tr>
                     </tbody>
                 </table>

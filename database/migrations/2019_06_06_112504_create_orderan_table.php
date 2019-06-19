@@ -20,6 +20,8 @@ class CreateOrderanTable extends Migration
             $table->date('tanggal');
             $table->integer('status');
             $table->string('bukti');
+            $table->string('shipping');
+            $table->integer('shipping_price');
             $table->timestamps();
         });
     }

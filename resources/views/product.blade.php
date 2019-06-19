@@ -99,12 +99,18 @@ function toIdr($angka) {
     function getQty() {
         return ($("#qty").isi() == 0) ? 0 : $("#qty").isi()
     }
+    function toIdr(angka) {
+        var rupiah = '';		
+        var angkarev = angka.toString().split('').reverse().join('');
+        for(var i = 0; i < angkarev.length; i++) if(i%3 == 0) rupiah += angkarev.substr(i,3)+'.';
+        return 'Rp. '+rupiah.split('',rupiah.length-1).reverse().join('');
+    }
     function calcPrice(qty) {
         let calc = price * qty
         if(calc < price) {
             return false
         }
-        $("#totalPrice").tulis(calc)
+        $("#totalPrice").tulis(toIdr(calc))
         return calc
     }
     function increaseQty() {
