@@ -8,8 +8,10 @@ use Cookie;
 use App\User;
 use App\Images;
 use App\Config;
+use App\Review;
 use App\Orderan;
 use App\Product;
+use App\DetailOrder;
 
 class UserController extends Controller
 {
@@ -43,12 +45,27 @@ class UserController extends Controller
 
         return view('index')->with(['config' => $conf, 'products' => $prod, 'q' => '', 'myData' => $user]);
     }
+    public function ableToReview($product_id, $user_id) {
+        $ordData = Orderan::where([['user_id', $user_id], ['status', 1]])->get();
+        foreach($ordData as $item) {
+            $getDetailOrder = DetailOrder::where([['order_id', $item->idorder], ['product_id', $product_id]])->get();
+            if($getDetailOrder->count() == 0) {
+                return false;
+            }else {
+                return true;
+            }
+        }
+    }
     public function viewProduct($id) {
         $conf = Config::first();
         $user = Auth::user();
         $prod = Product::find($id);
+        $revs = Review::where('product_id', $id)->with(['users'])->get();
 
         if($user != "") {
+            /* 
+                * Untuk sub menu user 
+            */
             // add orderan info
             $ordData = Orderan::where([['user_id', $user->iduser], ['status', '0']])->get()->count();
             $user->orderan = $ordData;
@@ -58,9 +75,20 @@ class UserController extends Controller
             $user->keranjang = $cartData;
         }
 
+        $ableWriteReview = $this->ableToReview($id, $user->iduser);
+        $writeReview = (!$ableWriteReview) ? 0 : 1;
+
         $productImages = Images::where('product_id', $prod->idproduct)->get();
         
-        return view('product')->with(['config' => $conf, 'product' => $prod, 'myData' => $user, 'images' => $productImages]);
+        return view('product')
+                ->with([
+                    'config' => $conf,
+                    'product' => $prod,
+                    'myData' => $user,
+                    'images' => $productImages,
+                    'writeReview' => $writeReview,
+                    'reviews' => $revs
+                ]);
     }
     public function loginPage() {
         $conf = Config::first();

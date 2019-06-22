@@ -74,7 +74,22 @@ function toIdr($angka) {
         </div>
         <div class="bag bag-10 bg-putih bayangan-5 rounded mt-4">
             <div class="wrap">
-                <h2>Ulasan</h2>
+                <div class="bag bag-4">
+                    <h2>Tulis Ulasan</h2>
+                    <form action="{{ route('review.store') }}" method="POST">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="product_id" value="{{ $product->idproduct }}">
+                        <textarea name="comment" class="box mt-1" placeholder="Bagaimana tanggapan Anda tentang produk ini?"></textarea>
+                        <button class="biru mt-2">Ulas!</button>
+                    </form>
+                </div>
+                <div class="bag bag-6">
+                    <h2>Ulasan</h2>
+                    @foreach ($reviews as $item)
+                        <h3>{{ $item->users->nama }} <span class="teks-tipis">({{ $item->rate }} dari 5)</span></h3>
+                        <p>{{ $item->comment }}</p>
+                    @endforeach
+                </div>
             </div>
         </div>
         <div class="wrapperImageDisplayer">

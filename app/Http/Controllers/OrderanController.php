@@ -37,7 +37,7 @@ class OrderanController extends Controller
 
         // get detail order
         // get orderId
-        $myOrder = Orderan::where([['user_id', $myData->iduser], ['status', '!=', 9]])->get();
+        $myOrder = Orderan::where([['user_id', $myData->iduser], ['status', '!=', 9], ['status', '!=', 8]])->get();
         // if($myOrder->count() == 0) {
         //     $myCart = "null";
         // }else {
@@ -105,5 +105,14 @@ class OrderanController extends Controller
         $ord->save();
 
         return redirect()->route('payment.success');
+    }
+    public function barangSampai(Request $req) {
+        $id = $req->idorder;
+
+        $prod = Orderan::find($id);
+        $prod->status = 1;
+        $prod->save();
+
+        return redirect()->route('user.orderan');
     }
 }

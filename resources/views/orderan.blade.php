@@ -77,8 +77,15 @@ function toIdr($angka) {
     <div class="popup">
         <div class="wrap">
             <h3>Barang sudah sampai?
-                <span class="ke-kanan"><i class="fas fa-times"></i></span>
+                <span class="ke-kanan" onclick="hilangPopup('#yakinPopup')">
+                    <i class="fas fa-times"></i>
+                </span>
             </h3>
+            <form action="{{ route('barangSampai') }}" method="POST">
+                {{ csrf_field() }}
+                <input type="hidden" name="idorder" id="idorder">
+                <button class="tbl hijau lebar-100 mt-2">Ya, Sudah sampai</button>
+            </form>
         </div>
     </div>
 </div>
@@ -87,7 +94,8 @@ function toIdr($angka) {
 @section('javascript')
 <script>
     function sampai(id) {
-        munculPopup("#yakinPopup")
+        munculPopup("#yakinPopup", $("#yakinPopup").pengaya("top: 210px"))
+        $("#idorder").isi(id)
     }
 </script>
 @endsection

@@ -176,6 +176,8 @@ table td form { display: inline-block; }
 .teks-putih { color: #fff; }
 .teks-gelap { color: #444; }
 .teks-transparan { color: #777; }
+.teks-tebal { font-family: ProBold; }
+.teks-tipis { font-family: ProLight;}
 
 .ke-kanan { float: right; }
 .ke-kiri { float: left; }

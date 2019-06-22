@@ -32,11 +32,15 @@ Route::get('/order/{id}', 'OrderanController@detailOrder')->name('order.detail')
 Route::get('/cara-membayar', 'PaymentController@paymentPage')->name('payment.page');
 Route::get('/konfirmasi/{id?}', 'OrderanController@confirmationPage')->name('confirmation.page');
 Route::post('/konfirmasi', 'PaymentController@confirmation')->name('confirmation.store');
+Route::post('/barang-sampai', 'OrderanController@barangSampai')->name('barangSampai');
 
 // user keranjang
 Route::get('/keranjang', 'CartController@index')->name('cart');
 Route::post('/cart/store', 'CartController@store')->name('cart.store');
 Route::post('/cart/{id}/delete', 'CartController@delete')->name('cart.delete');
+
+// user review
+Route::post('/review', 'ReviewController@store')->name('review.store');
 
 // User Checkout
 Route::get('/orderan/{id}', 'OrderanController@checkout')->name('order.checkout');
