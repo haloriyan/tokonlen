@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProvinceTable extends Migration
+class CreateNotificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateProvinceTable extends Migration
      */
     public function up()
     {
-        Schema::create('province', function (Blueprint $table) {
-            $table->bigIncrements('idprovince');
-            $table->string('name');
+        Schema::create('notifications', function (Blueprint $table) {
+            $table->bigIncrements('idnotif');
+            $table->integer('user_id');
+            $table->text('message');
+            $table->integer('readed');
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreateProvinceTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('province');
+        Schema::dropIfExists('notifications');
     }
 }

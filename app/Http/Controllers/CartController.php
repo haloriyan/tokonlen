@@ -9,6 +9,7 @@ use App\Config;
 use App\Product;
 use App\Orderan;
 use App\DetailOrder;
+use App\Notification;
 use Illuminate\Http\Request;
 use \App\Http\Controllers\RajaongkirController as RajaOngkir;
 
@@ -37,6 +38,10 @@ class CartController extends Controller
             // add cart info
             $cartData = Orderan::where([['user_id', $myData->iduser], ['status', '9']])->get()->count();
             $myData->keranjang = $cartData;
+
+            // add notif info
+            $notifData = Notification::where([['user_id', $myData->iduser], ['readed', 0]])->get()->count();
+            $myData->notifikasi = $notifData;
         }
 
         // $ong = new RajaOngkir;
@@ -76,6 +81,8 @@ class CartController extends Controller
             $ord->tanggal = date('Y-m-d');
             $ord->status = 9;
             $ord->bukti = '';
+            $ord->shipping = '';
+            $ord->shipping_price = 0;
             
             $ord->save();
         }else {

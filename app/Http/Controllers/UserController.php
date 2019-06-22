@@ -12,6 +12,7 @@ use App\Review;
 use App\Orderan;
 use App\Product;
 use App\DetailOrder;
+use App\Notification;
 
 class UserController extends Controller
 {
@@ -45,8 +46,11 @@ class UserController extends Controller
 
         return view('index')->with(['config' => $conf, 'products' => $prod, 'q' => '', 'myData' => $user]);
     }
-    public function ableToReview($product_id, $user_id) {
+    public static function ableToReview($product_id, $user_id) {
         $ordData = Orderan::where([['user_id', $user_id], ['status', 1]])->get();
+        if($ordData->count() == 0) {
+            return false;
+        }
         foreach($ordData as $item) {
             $getDetailOrder = DetailOrder::where([['order_id', $item->idorder], ['product_id', $product_id]])->get();
             if($getDetailOrder->count() == 0) {
@@ -124,6 +128,10 @@ class UserController extends Controller
             // add cart info
             $cartData = Orderan::where([['user_id', $myData->iduser], ['status', '9']])->get()->count();
             $myData->keranjang = $cartData;
+
+            // add notif info
+            $notifData = Notification::where([['user_id', $myData->iduser], ['readed', 0]])->get()->count();
+            $myData->notifikasi = $notifData;
         }
 
         $prod = Product::where('title', 'LIKE', '%'.$q.'%')->get();
@@ -196,6 +204,10 @@ class UserController extends Controller
             // add cart info
             $cartData = Orderan::where([['user_id', $myData->iduser], ['status', '9']])->get()->count();
             $myData->keranjang = $cartData;
+
+            // add notif info
+            $notifData = Notification::where([['user_id', $myData->iduser], ['readed', 0]])->get()->count();
+            $myData->notifikasi = $notifData;
         }
 
         return view('user.settings')->with(['myData' => $myData, 'config' => $conf, 'notif' => $notif]);
@@ -214,5 +226,33 @@ class UserController extends Controller
         Cookie::queue('notif', 'Perubahan berhasil disimpan', '0.25');
 
         return redirect()->route('user.settings');
+    }
+    public function notificationPage() {
+        $myData = Auth::user();
+        $conf = Config::first();
+
+        if($myData != "") {
+            // add orderan info
+            $ordData = Orderan::where('user_id', $myData->iduser)->get()->count();
+            $myData->orderan = $ordData;
+
+            // add cart info
+            $cartData = Orderan::where([['user_id', $myData->iduser], ['status', '9']])->get()->count();
+            $myData->keranjang = $cartData;
+
+            // add notif info
+            $notifData = Notification::where([['user_id', $myData->iduser], ['readed', 0]])->get()->count();
+            $myData->notifikasi = $notifData;
+        }
+
+        // get notification data
+        $notif = Notification::where('user_id', $myData->iduser)
+                    ->orderBy('readed', 'ASC')
+                    ->orderBy('created_at', 'DESC')
+                    ->get();
+
+        $readNotification = \App\Http\Controllers\NotificationController::read($myData->iduser);
+
+        return view('notification')->with(['myData' => $myData, 'config' => $conf, 'notif' => $notif]);
     }
 }

@@ -6,6 +6,7 @@ use DB;
 use Auth;
 use App\Config;
 use App\Orderan;
+use App\Notification;
 use Illuminate\Http\Request;
 
 class OrderanController extends Controller
@@ -55,6 +56,10 @@ class OrderanController extends Controller
             // add cart info
             $cartData = Orderan::where([['user_id', $myData->iduser], ['status', '9']])->get()->count();
             $myData->keranjang = $cartData;
+
+            // add notif info
+            $notifData = Notification::where([['user_id', $myData->iduser], ['readed', 0]])->get()->count();
+            $myData->notifikasi = $notifData;
         }
 
         return view('orderan')->with(['config' => $conf, 'myData' => $myData, 'myOrder' => $myOrder]);
@@ -75,6 +80,20 @@ class OrderanController extends Controller
                         ->get();
         }
 
+        if($myData != "") {
+            // add orderan info
+            $ordData = Orderan::where('user_id', $myData->iduser)->get()->count();
+            $myData->orderan = $ordData;
+
+            // add cart info
+            $cartData = Orderan::where([['user_id', $myData->iduser], ['status', '9']])->get()->count();
+            $myData->keranjang = $cartData;
+
+            // add notif info
+            $notifData = Notification::where([['user_id', $myData->iduser], ['readed', 0]])->get()->count();
+            $myData->notifikasi = $notifData;
+        }
+
         return view('detailOrder')->with(['config' => $conf, 'myData' => $myData, 'myCart' => $myCart, 'myOrder' => $myOrder]);
     }
     public function confirmationPage($id = NULL) {
@@ -92,6 +111,10 @@ class OrderanController extends Controller
             // add cart info
             $cartData = Orderan::where([['user_id', $myData->iduser], ['status', '9']])->get()->count();
             $myData->keranjang = $cartData;
+
+            // add notif info
+            $notifData = Notification::where([['user_id', $myData->iduser], ['readed', 0]])->get()->count();
+            $myData->notifikasi = $notifData;
         }
 
         $myOrder = Orderan::where([['user_id', $myData->iduser], ['status', '0']])->get();

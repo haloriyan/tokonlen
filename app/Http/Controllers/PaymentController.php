@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
+
     public function paymentPage() {
         $conf = Config::first();
         $datas = Payment::all();
@@ -80,6 +81,9 @@ class PaymentController extends Controller
 
         $ord->status = 2;
         $ord->save();
+
+        // $noticeUser = app('App\Http\Controllers\NotificationController')->notice($ord->user_id, "Orderan telah dikirim ke alamat Anda");
+        $noticeUser = \App\Http\Controllers\NotificationController::notice($ord->user_id, "Orderan telah dikirim ke alamat Anda");
 
         return redirect()->route('admin.confirmation');
     }

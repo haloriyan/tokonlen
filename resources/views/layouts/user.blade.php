@@ -31,9 +31,11 @@
                             @php
                                 $myCart = ($myData->keranjang == "") ? "0" : $myData->keranjang;
                                 $myOrderan = ($myData->orderan == "") ? "0" : $myData->orderan;
+                                $myNotification = ($myData->notifikasi == "") ? "0" : $myData->notifikasi;
                             @endphp
                             <a href="{{ route('cart') }}"><li>Keranjang <b>({{ $myCart }})</b></li></a>
                             <a href="/orderan-saya"><li>Orderan <b>({{ $myOrderan }})</b></li></a>
+                            <a href="/notifikasi"><li>Notifikasi <b>({{ $myNotification }})</b></li></a>
                             <a href="/profil/pengaturan"><li>Akun</li></a>
                             <li>
                                 <form action="{{ route('logout') }}" method="get">

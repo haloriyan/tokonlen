@@ -38,12 +38,12 @@ Route::post('/barang-sampai', 'OrderanController@barangSampai')->name('barangSam
 Route::get('/keranjang', 'CartController@index')->name('cart');
 Route::post('/cart/store', 'CartController@store')->name('cart.store');
 Route::post('/cart/{id}/delete', 'CartController@delete')->name('cart.delete');
-
 // user review
 Route::post('/review', 'ReviewController@store')->name('review.store');
-
 // User Checkout
 Route::get('/orderan/{id}', 'OrderanController@checkout')->name('order.checkout');
+// User Notification
+Route::get('/notifikasi', 'UserController@notificationPage')->name('notification');
 
 // Admin
 Route::get('/admin/produk', 'AdminController@productPage')->name('admin.product');
