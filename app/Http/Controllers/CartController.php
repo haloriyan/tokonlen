@@ -17,7 +17,7 @@ class CartController extends Controller
 {
     public function index() {
         $conf = Config::first();
-        $myData = Auth::user();
+        $myData = Auth::guard('buyer')->user();
 
         // get orderId
         $myOrder = Orderan::where([['user_id', $myData->iduser], ['status', 9]])->get();
@@ -67,7 +67,7 @@ class CartController extends Controller
         
         // define data
         $pernahOrder = 0;
-        $myId = Auth::user()->iduser;
+        $myId = Auth::guard('buyer')->user()->iduser;
         $idorder = rand(1, 99999);
 
         // Cek order

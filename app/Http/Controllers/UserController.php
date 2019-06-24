@@ -32,7 +32,7 @@ class UserController extends Controller
     public function indexPage() {
         $conf = Config::first();
         $prod = Product::all();
-        $user = Auth::user();
+        $user = Auth::guard('buyer')->user();
 
         if($user != "") {
             // add orderan info
@@ -62,7 +62,7 @@ class UserController extends Controller
     }
     public function viewProduct($id) {
         $conf = Config::first();
-        $user = Auth::user();
+        $user = Auth::guard('buyer')->user();
         $prod = Product::find($id);
         $revs = Review::where('product_id', $id)->with(['users'])->get();
 
@@ -79,8 +79,12 @@ class UserController extends Controller
             $user->keranjang = $cartData;
         }
 
-        $ableWriteReview = $this->ableToReview($id, $user->iduser);
-        $writeReview = (!$ableWriteReview) ? 0 : 1;
+        if($user != "") {
+            $ableWriteReview = $this->ableToReview($id, $user->iduser);
+            $writeReview = (!$ableWriteReview) ? 0 : 1;
+        }else {
+            $writeReview = 0;
+        }
 
         $productImages = Images::where('product_id', $prod->idproduct)->get();
         
@@ -114,7 +118,7 @@ class UserController extends Controller
     }
     public function cariProduct(Request $req) {
         $conf = Config::first();
-        $myData = Auth::user();
+        $myData = Auth::guard('buyer')->user();
         $q = $req->q;
         if($q == "") {
             return redirect()->route('user.index');
@@ -179,7 +183,7 @@ class UserController extends Controller
     }
     public function login(Request $req) {
         $email = $req->email;
-        $login = Auth::attempt(['email' => $email, 'password' => $req->pwd]);
+        $login = Auth::guard('buyer')->attempt(['email' => $email, 'password' => $req->pwd]);
         if(!$login) {
             return response()->json(['status' => 0, 'msg' => 'Wrong email / password', 'userData' => $password]);
         }
@@ -187,12 +191,12 @@ class UserController extends Controller
         return response()->json(['status' => 1, 'msg' => 'Login successful', 'data' => $login]);
     }
     public function logout() {
-        Auth::logout();
+        Auth::guard('buyer')->logout();
 
         return redirect()->route('user.index');
     }
     public function settings() {
-        $myData = Auth::user();
+        $myData = Auth::guard('buyer')->user();
         $conf = Config::first();
         $notif = Cookie::get('notif');
 
@@ -213,7 +217,7 @@ class UserController extends Controller
         return view('user.settings')->with(['myData' => $myData, 'config' => $conf, 'notif' => $notif]);
     }
     public function saveSettings(Request $req) {
-        $myId = Auth::user()->iduser;
+        $myId = Auth::guard('buyer')->user()->iduser;
 
         $u = User::find($myId);
         $u->nama = $req->nama;
@@ -228,7 +232,7 @@ class UserController extends Controller
         return redirect()->route('user.settings');
     }
     public function notificationPage() {
-        $myData = Auth::user();
+        $myData = Auth::guard('buyer')->user();
         $conf = Config::first();
 
         if($myData != "") {

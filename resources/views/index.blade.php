@@ -6,7 +6,7 @@ function toIdr($angka) {
 }
 @endphp
 
-@section('title', $config->nama_toko.' | ')
+@section('title', $config->nama_toko)
 
 @section('content')
 <div class="pencarian">

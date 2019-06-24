@@ -34,7 +34,7 @@ class OrderanController extends Controller
     }
     public function mine() {
         $conf = Config::first();
-        $myData = Auth::user();
+        $myData = Auth::guard('buyer')->user();
 
         // get detail order
         // get orderId
@@ -66,7 +66,7 @@ class OrderanController extends Controller
     }
     public function detailOrder($id) {
         $conf = Config::first();
-        $myData = Auth::user();
+        $myData = Auth::guard('buyer')->user();
 
         // get detail order
         // get orderId
@@ -98,7 +98,7 @@ class OrderanController extends Controller
     }
     public function confirmationPage($id = NULL) {
         $conf = Config::first();
-        $myData = Auth::user();
+        $myData = Auth::guard('buyer')->user();
         if($myData == "") {
             $myData = "private";
         }

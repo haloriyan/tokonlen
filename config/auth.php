@@ -47,6 +47,11 @@ return [
             'hash' => false,
         ],
 
+        'buyer' => [
+            'driver' => 'session',
+            'provider' => 'buyers'
+        ],
+
         'user' => [
             'driver' => 'session',
             'provider' => 'user'
@@ -79,6 +84,11 @@ return [
         'user' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
+        ],
+
+        'buyers' => [
+            'driver' => 'eloquent',
+            'model' => App\User::class
         ],
 
         // 'users' => [

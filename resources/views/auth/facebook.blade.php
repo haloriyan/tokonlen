@@ -74,7 +74,7 @@
             const data = res.data
             document.querySelector("#status").innerHTML = "<i class='fas fa-check'></i> berhasil login! Mengarahkan..."
             if(data.status == 0) {
-                document.location = './register/facebook/'+btoa(email)+'/'+btoa(nama)
+                document.location = '../register/facebook/'+btoa(email)+'/'+btoa(nama)
             }else if(data.status == 2) {
                 console.log('alamat kosong')
             }else {

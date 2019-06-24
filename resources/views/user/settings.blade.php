@@ -2,6 +2,10 @@
 
 @section('title', 'Pengaturan Profil')
 
+@php
+    $myDataProvince = ($myData->provinsi == "") ? "" : $myData->provinsi;
+    $myDataCity = ($myData->kota == "") ? "" : $myData->kota;
+@endphp
 
 @section('content')
 <div class="container rata-tengah" style="top: 120px;">
@@ -24,12 +28,16 @@
                         Provinsi :
                         <select name="provinsi" id="prov" class="box" onchange="showCity(this.value)" required>
                             {{--  --}}
+                            @if ($myDataProvince == "")
+                                <option value="">Pilih provinsi...</option>
+                            @endif
                         </select>
                     </div>
                     <div class="bag bag-5">
                         Kota :
                         <select name="kota" id="city" class="box" required>
                             {{--  --}}
+                            <option value="">Pilih provinsi dahulu</option>
                         </select>
                     </div>
                     <button class="biru-alt">Simpan</button>
@@ -43,6 +51,8 @@
 @section('javascript')
 <script src="{{ asset('js/axios.min.js') }}"></script>
 <script>
+    let myDataProvince = "{{ $myDataProvince }}"
+    let myDataCity = "{{ $myDataCity }}"
     function getProvince() {
         axios.get('{{ env("APP_URL") }}:8000/api/ongkir/provinsi/')
         .then(res => {
@@ -52,8 +62,10 @@
                 optProv.innerHTML = res.province
                 optProv.setAttribute('value', res.province_id)
 
-                if({{ $myData->provinsi }} == res.province_id ) {
-                    optProv.setAttribute('selected', 'selected')
+                if(myDataProvince != "") {
+                    if(myDataProvince == res.province_id ) {
+                        optProv.setAttribute('selected', 'selected')
+                    }
                 }
 
                 document.querySelector("#prov").appendChild(optProv)
@@ -71,7 +83,7 @@
                 optCity.innerHTML = res.city_name
                 optCity.setAttribute('value', res.city_id)
 
-                if({{ $myData->kota }} == res.city_id) {
+                if(myDataCity == res.city_id) {
                     optCity.setAttribute('selected', 'selected')
                 }
 
@@ -80,8 +92,8 @@
         })
     }
     getProvince()
-    if({{ $myData->provinsi }} != "") {
-        showCity({{ $myData->provinsi }})
+    if(myDataProvince != "") {
+        showCity(myDataProvince)
     }
 </script>
 @endsection

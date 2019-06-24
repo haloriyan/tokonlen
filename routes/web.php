@@ -25,7 +25,7 @@ Route::get('/logout', 'UserController@logout')->name('logout');
 Route::get('/profil/pengaturan', 'UserController@settings')->name('user.settings');
 Route::post('/profil/pengaturan', 'UserController@saveSettings')->name('user.settings.save');
 Route::post('/register', 'UserController@register')->name('register');
-Route::get('/produk/{id}', 'UserController@viewProduct')->name('product.view');
+Route::get('/produk/{id}', 'UserController@viewProduct')->name('product.view')->middleware('User');
 Route::get('/produk/{id}#tulis-ulasan', 'UserController@viewProduct')->name('review.write');
 Route::get('/orderan-saya', 'OrderanController@mine')->name('user.orderan');
 Route::get('/order/{id}', 'OrderanController@detailOrder')->name('order.detail');

@@ -11,7 +11,7 @@ use App\Orderan;
 class ReviewController extends Controller
 {
     public function store(Request $req) {
-        $myData = Auth::user();
+        $myData = Auth::guard('buyer')->user();
 
         $rev = new Review;
         $rev->product_id = $req->product_id;

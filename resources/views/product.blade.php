@@ -6,7 +6,8 @@ function toIdr($angka) {
 }
 @endphp
 
-@section('title', $product->title)
+@section('title', $config->nama_toko)
+@section('productName', $product->title. " |")
 
 @section('head.dependencies')
     <link rel="stylesheet" href="{{ asset('libraries/ImageDisplayer/ImageDisplayer.css') }}">
@@ -23,10 +24,7 @@ function toIdr($angka) {
             filter: blur(2px);
         }
         .carousel img:hover{ filter: blur(0px); }
-
-        .carousel::-webkit-scrollbar {
-            height: 1px;
-        }
+        .carousel::-webkit-scrollbar { height: 1px; }
     </style>
 @endsection
 
@@ -85,7 +83,11 @@ function toIdr($angka) {
                         </form>
                     @else
                         <h2>Anda tidak dapat menulis ulasan untuk produk ini</h2>
-                        <p>Mungkin karena Anda belum mengorder atau sudah menulis ulasan untuk produk ini</p>
+                        @if ($myData == "")
+                            Anda harus login terlebih dahulu
+                        @else
+                            <p>Mungkin karena Anda belum mengorder atau sudah menulis ulasan untuk produk ini</p>
+                        @endif
                     @endif
                 </div>
                 <div class="bag bag-1"></div>
