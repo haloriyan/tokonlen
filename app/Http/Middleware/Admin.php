@@ -3,10 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Auth;
-use \App\Http\Controllers\UserController as UserController;
+use \App\Http\Controllers\AdminController as AdminController;
 
-class User
+class Admin
 {
     /**
      * Handle an incoming request.
@@ -17,9 +16,9 @@ class User
      */
     public function handle($request, Closure $next)
     {
-        $myData = UserController::myData();
+        $myData = AdminController::myData();
         if($myData == "") {
-            return "403";
+            return redirect()->route('user.index');
         }
         return $next($request);
     }

@@ -38,13 +38,13 @@ function toIdr($angka) {
                                 <td><a href="{{ route('product.view', $item->idproduct) }}" class="teks-gelap">{{ $item->title }}</a></td>
                                 <td>{{ $item->qty }}</td>
                                 <td>{{ toIdr($item->total) }}</td>
-                                @if ($UserController::ableToReview($item->idproduct, $myData->iduser))
+                                {{-- @if ($UserController::ableToReview($item->idproduct, $myData->iduser))
                                     <td>
                                         <a href="{{ route('review.write', $item->idproduct) }}">
                                             <button class="hijau-alt"><i class="fas fa-edit"></i> Ulas</button>
                                         </a>
                                     </td>
-                                @endif
+                                @endif --}}
                             </tr>
                         @endforeach
                         <tr>

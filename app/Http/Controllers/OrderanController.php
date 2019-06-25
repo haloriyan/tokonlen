@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use DB;
 use Auth;
-use App\Config;
 use App\Orderan;
 use App\Notification;
 use Illuminate\Http\Request;
+use \App\Http\Controllers\ConfigController as Config;
+use \App\Http\Controllers\UserController as User;
 
 class OrderanController extends Controller
 {
@@ -33,8 +34,8 @@ class OrderanController extends Controller
         return redirect()->route('user.orderan');
     }
     public function mine() {
-        $conf = Config::first();
-        $myData = Auth::guard('buyer')->user();
+        $conf = Config::get();
+        $myData = User::myData();
 
         // get detail order
         // get orderId
@@ -65,8 +66,8 @@ class OrderanController extends Controller
         return view('orderan')->with(['config' => $conf, 'myData' => $myData, 'myOrder' => $myOrder]);
     }
     public function detailOrder($id) {
-        $conf = Config::first();
-        $myData = Auth::guard('buyer')->user();
+        $conf = Config::get();
+        $myData = User::myData();
 
         // get detail order
         // get orderId
@@ -97,8 +98,8 @@ class OrderanController extends Controller
         return view('detailOrder')->with(['config' => $conf, 'myData' => $myData, 'myCart' => $myCart, 'myOrder' => $myOrder]);
     }
     public function confirmationPage($id = NULL) {
-        $conf = Config::first();
-        $myData = Auth::guard('buyer')->user();
+        $conf = Config::get();
+        $myData = User::myData();
         if($myData == "") {
             $myData = "private";
         }

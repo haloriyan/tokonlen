@@ -16,6 +16,9 @@ use App\Notification;
 
 class UserController extends Controller
 {
+    public static function myData() {
+        return Auth::guard('buyer')->user();
+    }
     public function cekUser($email) {
         $email = base64_decode($email);
         $u = User::where('email', $email)->first();
@@ -32,7 +35,7 @@ class UserController extends Controller
     public function indexPage() {
         $conf = Config::first();
         $prod = Product::all();
-        $user = Auth::guard('buyer')->user();
+        $user = $this->myData();
 
         if($user != "") {
             // add orderan info
@@ -62,7 +65,7 @@ class UserController extends Controller
     }
     public function viewProduct($id) {
         $conf = Config::first();
-        $user = Auth::guard('buyer')->user();
+        $user = $this->myData();
         $prod = Product::find($id);
         $revs = Review::where('product_id', $id)->with(['users'])->get();
 
@@ -118,7 +121,7 @@ class UserController extends Controller
     }
     public function cariProduct(Request $req) {
         $conf = Config::first();
-        $myData = Auth::guard('buyer')->user();
+        $myData = $this->myData();
         $q = $req->q;
         if($q == "") {
             return redirect()->route('user.index');
@@ -196,7 +199,7 @@ class UserController extends Controller
         return redirect()->route('user.index');
     }
     public function settings() {
-        $myData = Auth::guard('buyer')->user();
+        $myData = $this->myData();
         $conf = Config::first();
         $notif = Cookie::get('notif');
 
@@ -232,7 +235,7 @@ class UserController extends Controller
         return redirect()->route('user.settings');
     }
     public function notificationPage() {
-        $myData = Auth::guard('buyer')->user();
+        $myData = $this->myData();
         $conf = Config::first();
 
         if($myData != "") {

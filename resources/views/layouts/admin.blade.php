@@ -21,15 +21,18 @@
 <div class="kiri">
     <div class="wrap">
         <a href="#"><li><div class="icon"><i class="fas fa-home"></i></div> <span>Dashboard</span></li></a>
-        <a href="#"><li><div class="icon"><i class="fas fa-database"></i></div> <span>Master Data <i class="fas fa-angle-down"></i></span>
-			<ul class="sub">
-                <a href="{{ route('admin.product') }}"><li><div class="icon"><i class="fas fa-box"></i></div> <span>Produk</span></li></a>
-                <a href="{{ route('admin.category') }}"><li><div class="icon"><i class="fas fa-tags"></i></div> <span>Kategori</span></li></a>
-                <a href="#"><li><div class="icon"><i class="fas fa-percent"></i></div> <span>Kupon</span></li></a>
-                <a href="{{ route('admin.payment') }}"><li><div class="icon"><i class="fas fa-money-bill-alt"></i></div> <span>Pembayaran</span></li></a>
-                <a href="#"><li><div class="icon"><i class="fas fa-users"></i></div> <span>Karyawan</span></li></a>
-			</ul>
-        </li></a>
+        <a href="#">
+			<li>
+				<div class="icon"><i class="fas fa-database"></i></div> <span>Master Data <i class="fas fa-angle-down"></i></span>
+				<ul class="sub">
+					<a href="{{ route('admin.product') }}"><li><div class="icon"><i class="fas fa-box"></i></div> <span>Produk</span></li></a>
+					<a href="{{ route('admin.category') }}"><li><div class="icon"><i class="fas fa-tags"></i></div> <span>Kategori</span></li></a>
+					<a href="#"><li><div class="icon"><i class="fas fa-percent"></i></div> <span>Kupon</span></li></a>
+					<a href="{{ route('admin.payment') }}"><li><div class="icon"><i class="fas fa-money-bill-alt"></i></div> <span>Pembayaran</span></li></a>
+					<a href="#"><li><div class="icon"><i class="fas fa-users"></i></div> <span>Karyawan</span></li></a>
+				</ul>
+			</li>
+		</a>
         <a href="#"><li><div class="icon"><i class="fas fa-comments"></i></div> <span>Messaging</span></li></a>
         <a href="#"><li><div class="icon"><i class="fas fa-chart-area"></i></div> <span>Laporan</span></li></a>
         <a href="{{ route('admin.config') }}"><li><div class="icon"><i class="fas fa-cogs"></i></div> <span>Setelan</span></li></a>
@@ -105,11 +108,8 @@
 	}
 
 function myfunction(el,d) {
-	if(d == "r") {
-		toggleMenu("bkMenu")
-  	}else if(d == "l") {
-		toggleMenu("xMenu")
-	}
+	let action = (d == "r") ? "bkMenu" : "xMenu"
+	toggleMenu(action)
 }
 
 detectswipe('body',myfunction);

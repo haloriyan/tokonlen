@@ -46,12 +46,18 @@ Route::get('/orderan/{id}', 'OrderanController@checkout')->name('order.checkout'
 Route::get('/notifikasi', 'UserController@notificationPage')->name('notification');
 
 // Admin
-Route::get('/admin/produk', 'AdminController@productPage')->name('admin.product');
-Route::get('/admin/kategori', 'AdminController@category')->name('admin.category');
-Route::get('/admin/konfirmasi', 'AdminController@confirmationPage')->name('admin.confirmation');
-Route::get('/admin/bukti/{id}', 'PaymentController@showEvidence')->name('evidence');
-Route::get('/admin/laporan', 'AdminController@reportPage')->name('admin.report');
-Route::get('/admin/setelan', 'AdminController@configPage')->name('admin.config');
+Route::get('/admin', function() {
+    return redirect()->route('admin.login');
+});
+Route::get('/admin/produk', 'AdminController@productPage')->name('admin.product')->middleware('Admin');
+Route::get('/admin/kategori', 'AdminController@category')->name('admin.category')->middleware('Admin');
+Route::get('/admin/konfirmasi', 'AdminController@confirmationPage')->name('admin.confirmation')->middleware('Admin');
+Route::get('/admin/bukti/{id}', 'PaymentController@showEvidence')->name('evidence')->middleware('Admin');
+Route::get('/admin/laporan', 'AdminController@reportPage')->name('admin.report')->middleware('Admin');
+Route::get('/admin/setelan', 'AdminController@configPage')->name('admin.config')->middleware('Admin');
+Route::get('/admin/login', 'AdminController@loginPage')->name('admin.login');
+
+Route::post('/admin/login', 'AdminController@login')->name('admin.login.action');
 
 Route::post('/admin/konfirmasi/{id}', 'PaymentController@paymentConfirmation')->name('payment.confirmation');
 

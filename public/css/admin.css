@@ -44,10 +44,10 @@ div { transition: 0.4s; }
 }
 .kiri li {
 	list-style: none;
-	line-height: 55px;
+    line-height: 55px;
 	border-radius: 6px;
 	padding: 1px 25px;
-	font-family: ProReg;
+    font-family: ProReg;
 }
 .kiri li[aktif=ya] {
 	background-color: rgb(13, 196, 175);
@@ -55,6 +55,7 @@ div { transition: 0.4s; }
 	font-family: ProBold;
 }
 .icon {
+    text-align: center;
 	display: inline-block;
 	width: 35px;
 }
@@ -78,9 +79,13 @@ div { transition: 0.4s; }
 .kiri li .fa-angle-down { float: right !important;margin-top: 15px;font-size: 20px; }
 /* hidden left menu */
 body.hiddenLeftMenu .kiri { width: 6%; }
+body.hiddenLeftMenu .kiri li { padding: 1px 15px; }
 body.hiddenLeftMenu .kiri span { display: none; }
 body.hiddenLeftMenu .atas { left: 6%; }
 body.hiddenLeftMenu .container { left: 12.5%; }
+body.hiddenLeftMenu .kiri li:hover .sub li {
+    padding-left: 0px;
+}
 
 .container {
     position: absolute;

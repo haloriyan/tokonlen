@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DB;
+use Auth;
 use App\Orderan;
 use App\Product;
 use Illuminate\Http\Request;
@@ -10,6 +11,9 @@ use \App\Http\Controllers\ConfigController as Config;
 
 class AdminController extends Controller
 {
+    public static function myData() {
+        return Auth::guard('admin')->user();
+    }
     public function productPage() {
         $p = Product::all();
         $conf = Config::get();
@@ -35,5 +39,19 @@ class AdminController extends Controller
                     ->join('users', 'orderan.user_id', '=', 'users.iduser')
                     ->get();
         return view('admin.confirmation')->with(['config' => $conf, 'notif' => '', 'datas' => $data]);
+    }
+    public function loginPage() {
+        $conf = Config::get();
+        return view('auth.admin')->with(['config' => $conf]);
+    }
+    public function login(Request $req) {
+        $email = $req->email;
+        $password = $req->password;
+
+        $login = Auth::guard('admin')->attempt(['email' => $email, 'password' => $password]);
+        if(!$login) {
+            return "gagal login";
+        }
+        return redirect()->route('admin.dashboard');
     }
 }
