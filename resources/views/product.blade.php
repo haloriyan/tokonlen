@@ -93,10 +93,14 @@ function toIdr($angka) {
                 <div class="bag bag-1"></div>
                 <div class="bag bag-5">
                     <h2>Ulasan</h2>
-                    @foreach ($reviews as $item)
-                        <h3>{{ $item->users->nama }} <span class="teks-tipis">({{ $item->rate }} dari 5)</span></h3>
-                        <p>{{ $item->comment }}</p>
-                    @endforeach
+                    @if ($reviews->count() == 0)
+                        <p>Belum ada ulasan untuk produk ini</p>
+                    @else
+                        @foreach ($reviews as $item)
+                            <h3>{{ $item->users->nama }} <span class="teks-tipis">({{ $item->rate }} dari 5)</span></h3>
+                            <p>{{ $item->comment }}</p>
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>

@@ -3,32 +3,32 @@
 namespace App\Http\Controllers;
 
 use DB;
-use App\Config;
 use App\Orderan;
 use App\Product;
 use Illuminate\Http\Request;
+use \App\Http\Controllers\ConfigController as Config;
 
 class AdminController extends Controller
 {
     public function productPage() {
         $p = Product::all();
-        $conf = Config::first();
+        $conf = Config::get();
         return view('admin.product')->with(['products' => $p, 'config' => $conf]);
     }
     public function configPage() {
-        $conf = Config::first();
+        $conf = Config::get();
         return view('admin.config')->with(['config' => $conf, 'notif' => '']);
     }
     public function paymentPage() {
-        $conf = Config::first();
+        $conf = Config::get();
         return view('admin.payment.index')->with(['config' => $conf, 'notif' => '']);
     }
     public function category() {
-        $conf = Config::first();
+        $conf = Config::get();
         return view('admin.category')->with(['config' => $conf, 'notif' => '']);
     }
     public function confirmationPage() {
-        $conf = Config::first();
+        $conf = Config::get();
         // $data = Orderan::where('status', 3)->get();
         $data = DB::table('orderan')
                     ->where('status', 3)

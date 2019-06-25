@@ -73,6 +73,8 @@ function toIdr($angka) {
 @section('javascript')
 <script src="{{ asset('js/axios.min.js') }}"></script>
 <script>
+    let shopCity = "{{ $config->kota }}"
+    let myCity = "{{ $myData->kota }}"
     function magicElement(properties) {
         let dom = document.createElement(properties.type)
         properties.attr.forEach(res => {
@@ -88,8 +90,8 @@ function toIdr($angka) {
     }
     function getOngkirData() {
         let data = new FormData()
-        data.append('origin', '444')
-        data.append('destination', '444')
+        data.append('origin', shopCity)
+        data.append('destination', myCity)
         data.append('weight', 100)
         data.append('courier', 'pos')
 

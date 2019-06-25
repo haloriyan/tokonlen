@@ -19,6 +19,8 @@ class CreateConfigTable extends Migration
             $table->string('motto');
             $table->string('icon');
             $table->string('alamat');
+            $table->string('kota');
+            $table->string('provinsi');
             $table->timestamps();
         });
     }

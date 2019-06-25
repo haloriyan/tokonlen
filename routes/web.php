@@ -50,6 +50,8 @@ Route::get('/admin/produk', 'AdminController@productPage')->name('admin.product'
 Route::get('/admin/kategori', 'AdminController@category')->name('admin.category');
 Route::get('/admin/konfirmasi', 'AdminController@confirmationPage')->name('admin.confirmation');
 Route::get('/admin/bukti/{id}', 'PaymentController@showEvidence')->name('evidence');
+Route::get('/admin/laporan', 'AdminController@reportPage')->name('admin.report');
+Route::get('/admin/setelan', 'AdminController@configPage')->name('admin.config');
 
 Route::post('/admin/konfirmasi/{id}', 'PaymentController@paymentConfirmation')->name('payment.confirmation');
 
@@ -62,9 +64,6 @@ Route::get('/admin/produk/{id}/ubah', 'ProductController@edit')->name('product.e
 Route::get('/admin/kategori/tambah', 'CategoryController@create')->name('category.create');
 Route::get('/admin/kategori/{id}/ubah', 'CategoryController@edit')->name('category.edit');
 
-Route::get('/admin/laporan', 'AdminController@reportPage')->name('admin.report');
-
-Route::get('/admin/konfigurasi', 'AdminController@configPage')->name('admin.config');
 Route::put('/admin/konfigurasi', 'ConfigController@setConfig')->name('admin.config.set');
 Route::put('/admin/konfigurasi/brand', 'ConfigController@setConfig')->name('admin.config.setBrand');
 
@@ -82,6 +81,6 @@ Route::get('/admin/payment/all', 'PaymentController@allPayment')->name('payment.
 Route::post('/admin/payment/store', 'PaymentController@store')->name('payment.store');
 Route::post('/admin/payment/{id}/update', 'PaymentController@update')->name('payment.update');
 Route::post('/admin/payment/delete', 'PaymentController@delete')->name('payment.delete');
-Route::get('/admin/pembayaran/{id}/ubah', 'PaymentController@edit')->name('payment.edit');
+Route::get('/admin/payment/{id}/ubah', 'PaymentController@edit')->name('payment.edit');
 
 Route::get('/test', 'ReviewController@testFunc');

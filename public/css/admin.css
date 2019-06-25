@@ -1,3 +1,4 @@
+div { transition: 0.4s; }
 .atas {
     position: fixed;
     top: 0px;left: 0px;right: 0px;
@@ -6,7 +7,7 @@
     background-color: #fff;
     box-shadow: 1px 1px 5px 1px #ddd;
     transition: 0.4s;
-    z-index: 1;
+    z-index: 2;
 }
 .atas h1 {
     font-size: 23px;
@@ -28,39 +29,58 @@
 }
 
 .kiri {
-    transition: 0.6s;
-    position: fixed;
-    top: 0px;left: 0px;bottom: 0px;
-    width: 20%;
-    background-color: #0a5e6a;
-    color: #fff;
+	position: fixed;
+	top: 0px;left: 0px;bottom: 0px;
+	width: 20%;
+	background-color: #0a5e6a;
+	color: #444;
+	z-index: 1;
+	box-shadow: 2px 1px 5px 1px #ddd;
 }
+.kiri .wrap { margin: 5%; }
 .kiri a {
-    color: #fff;
-    text-decoration: none;
+	text-decoration: none;
+	color: #fff;
 }
-.kiri li,.kiri button {
-    background: none;
-    text-align: left;
-    color: #fff;
-    list-style: none;
-    font-size: 18px;
-    padding: 25px 30px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: 0.4s;
+.kiri li {
+	list-style: none;
+	line-height: 55px;
+	border-radius: 6px;
+	padding: 1px 25px;
+	font-family: ProReg;
 }
-.kiri button { width: 100%; }
-.kiri .icon {
-    display: inline-block;
-    width: 40px;
+.kiri li[aktif=ya] {
+	background-color: rgb(13, 196, 175);
+	color: #fff;
+	font-family: ProBold;
 }
-.kiri li:hover,.kiri button:hover {
-    /* background-color: #01424d; */
+.icon {
+	display: inline-block;
+	width: 35px;
 }
-.kiri li .sub {
-    margin-left: 250px;
+.kiri .sub {
+    padding: 0px;
+	display: none;
 }
+.kiri li:hover .sub {
+	display: block;
+}
+.kiri .logo {
+	background-color:  #252c41;
+	text-align: center;
+	height: 70px;
+}
+.kiri .logo img {
+	width: 65%;
+	position: relative;
+	top: 15px;
+}
+.kiri li .fa-angle-down { float: right !important;margin-top: 15px;font-size: 20px; }
+/* hidden left menu */
+body.hiddenLeftMenu .kiri { width: 6%; }
+body.hiddenLeftMenu .kiri span { display: none; }
+body.hiddenLeftMenu .atas { left: 6%; }
+body.hiddenLeftMenu .container { left: 12.5%; }
 
 .container {
     position: absolute;
@@ -80,6 +100,22 @@
     margin: 0;
     border-radius: 0px;
 }
-form .box {
-    margin: 8px 0px 25px 0px;
+form .box { margin: 8px 0px 25px 0px; }
+
+@media (max-width: 480px) {
+    body.hiddenLeftMenu .kiri {
+        width: 15%;
+        left: -50%;
+    }
+    body .kiri { width: 75%; }
+    body .atas { left: 75%;right: -75%; }
+    body.hiddenLeftMenu .kiri .wrap { margin: 0; }
+    body.hiddenLeftMenu .atas {
+        left: 0%;right: 0%;
+    }
+    .container {
+        top: 120px;
+        left: 5% !important;
+    }
+    .atas h1 { margin-left: 5%; }
 }
