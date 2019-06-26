@@ -1,0 +1,91 @@
+.listChat {
+    position: fixed;
+    top: 0px;left: 0px;bottom: 0px;
+    width: 25%;
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+    color: #444;
+    overflow: auto;
+    z-index: 2;
+}
+.listChat::-webkit-scrollbar { width: 0px !important; }
+.listChat .header {
+    line-height: 60px;
+    padding: 1px 25px;
+    /* box-shadow: 1px 1px 5px 1px #ddd; */
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 15px;
+}
+.listChat .list {
+    border-bottom: 1px solid #eee;
+    padding: 1px;
+}
+.listChat .list h3 { margin: 0; }
+.listChat .list p {
+    margin: 0;
+    margin-top: 10px;
+    font-size: 16px;
+}
+.listChat .list .wrap { margin: 5% 10%; }
+.listChat .list .time {
+    margin-top: 15px;
+    font-size: 13px;
+}
+
+.atas {
+    position: fixed;
+    top: 0px;left: 25%;right: 0%;
+    background-color: #fff;
+    /* box-shadow: 1px 1px 5px 1px #ddd; */
+    border-bottom: 1px solid #ddd;
+    line-height: 62.5px;
+    color: #444;
+    z-index: 1;
+}
+.atas h1 {
+    margin: 0;
+    font-size: 20px;
+    margin-left: 5%;
+}
+
+.contentMessage {
+    position: absolute;
+    top: 60px;left: 30%;right: 5%;bottom: 10%;
+    padding: 20px 0px;
+    overflow: auto;
+}
+.contentMessage::-webkit-scrollbar { width: 0px; }
+.boxMessage {
+    background-color: #fff;
+    box-shadow: 1px 1px 5px 1px #ddd;
+    padding: 1px;
+    border-radius: 5px;
+    width: 60%;
+    margin-bottom: 20px;
+}
+.boxMessage .wrap { margin: 5%; }
+.boxMessage.saya {
+    float: right;
+    background-color: #3498db;
+    color: #fff;
+}
+
+.typingArea {
+    position: fixed;
+    left: 30%;right: 5%;bottom: 2%;
+}
+.typingArea .box {
+    border: 1px solid #ddd;
+    border-radius: 200px;
+    width: 92.55%;
+    font-size: 16px;
+    padding: 0px 30px;
+}
+.typingArea button {
+    background: none;
+    border: none;
+    color: #3498db;
+    margin: 0;
+    margin-left: -50px;
+    padding: 0;
+}

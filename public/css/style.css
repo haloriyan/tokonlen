@@ -15,7 +15,8 @@ body {
     color: #444;
     font-family: ProReg;
 }
-.wrap { margin: 3.5% 5%; }
+.wrap { margin: 5%; }
+.bag-10 > .wrap { margin: 3.5% 5%; }
 h1,h2,h3,h4,h5,h6 {
     font-family: ProBold;
 }
@@ -180,6 +181,7 @@ table td form { display: inline-block; }
 .teks-transparan { color: #777; }
 .teks-tebal { font-family: ProBold; }
 .teks-tipis { font-family: ProLight;}
+.teks-kecil { font-size: 80%; }
 
 .ke-kanan { float: right; }
 .ke-kiri { float: left; }

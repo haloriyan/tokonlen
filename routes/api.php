@@ -31,4 +31,8 @@ Route::get('/product/{id}/images', 'ProductController@ApiGetImages')->name('api.
 Route::post('/images/add', 'ImagesController@store')->name('api.addProductImage');
 Route::post('/images/delete', 'ImagesController@delete')->name('api.deleteProductImage');
 
+// Messaging
+Route::post('/messaging/user/send', 'MessagingController@send')->name('api.message.user.send')->middleware('cors');
+Route::post('/messaging/user/mine', 'MessagingController@mine')->name('api.message.user.mine')->middleware('cors');
+
 Route::get('/test', 'ImagesController@delete');

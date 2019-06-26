@@ -30,6 +30,7 @@ Route::get('/produk/{id}#tulis-ulasan', 'UserController@viewProduct')->name('rev
 Route::get('/orderan-saya', 'OrderanController@mine')->name('user.orderan');
 Route::get('/order/{id}', 'OrderanController@detailOrder')->name('order.detail');
 Route::get('/cara-membayar', 'PaymentController@paymentPage')->name('payment.page');
+Route::get('/cs', 'UserController@csPage')->name('user.cs');
 Route::get('/konfirmasi/{id?}', 'OrderanController@confirmationPage')->name('confirmation.page');
 Route::post('/konfirmasi', 'PaymentController@confirmation')->name('confirmation.store');
 Route::post('/barang-sampai', 'OrderanController@barangSampai')->name('barangSampai');
@@ -56,6 +57,8 @@ Route::get('/admin/bukti/{id}', 'PaymentController@showEvidence')->name('evidenc
 Route::get('/admin/laporan', 'AdminController@reportPage')->name('admin.report')->middleware('Admin');
 Route::get('/admin/setelan', 'AdminController@configPage')->name('admin.config')->middleware('Admin');
 Route::get('/admin/login', 'AdminController@loginPage')->name('admin.login');
+Route::get('/admin/perpesanan', 'AdminController@messagingPage')->name('admin.messaging');
+Route::get('/admin/dashboard', 'AdminController@dashboard')->name('admin.dashboard');
 
 Route::post('/admin/login', 'AdminController@login')->name('admin.login.action');
 

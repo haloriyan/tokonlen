@@ -29,11 +29,10 @@
 					<a href="{{ route('admin.category') }}"><li><div class="icon"><i class="fas fa-tags"></i></div> <span>Kategori</span></li></a>
 					<a href="#"><li><div class="icon"><i class="fas fa-percent"></i></div> <span>Kupon</span></li></a>
 					<a href="{{ route('admin.payment') }}"><li><div class="icon"><i class="fas fa-money-bill-alt"></i></div> <span>Pembayaran</span></li></a>
-					<a href="#"><li><div class="icon"><i class="fas fa-users"></i></div> <span>Karyawan</span></li></a>
 				</ul>
 			</li>
 		</a>
-        <a href="#"><li><div class="icon"><i class="fas fa-comments"></i></div> <span>Messaging</span></li></a>
+        <a href="{{ route('admin.messaging') }}"><li><div class="icon"><i class="fas fa-comments"></i></div> <span>Messaging</span></li></a>
         <a href="#"><li><div class="icon"><i class="fas fa-chart-area"></i></div> <span>Laporan</span></li></a>
         <a href="{{ route('admin.config') }}"><li><div class="icon"><i class="fas fa-cogs"></i></div> <span>Setelan</span></li></a>
         <a href="{{ route('logout') }}"><li><div class="icon"><i class="fas fa-sign-out-alt"></i></div> <span>Logout</span></li></a>

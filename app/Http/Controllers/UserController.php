@@ -262,4 +262,9 @@ class UserController extends Controller
 
         return view('notification')->with(['myData' => $myData, 'config' => $conf, 'notif' => $notif]);
     }
+    public function csPage() {
+        $myData = $this->myData();
+        $conf = Config::get();
+        return view('user.cs')->with(['config' => $conf, 'myData' => $myData]);
+    }
 }

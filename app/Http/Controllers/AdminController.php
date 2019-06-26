@@ -54,4 +54,12 @@ class AdminController extends Controller
         }
         return redirect()->route('admin.dashboard');
     }
+    public function dashboard() {
+        $conf = Config::get();
+        return view('admin.dashboard')->with(['config' => $conf]);
+    }
+    public function messagingPage() {
+        $conf = Config::get();
+        return view('admin.messaging')->with(['config' => $conf]);
+    }
 }

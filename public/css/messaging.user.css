@@ -1,0 +1,69 @@
+.atas {
+    position: fixed;
+    top: 0px;left: 0px;right: 0px;
+    line-height: 65px;
+    background-color: #fff;
+    box-shadow: 1px 1px 5px 1px #ddd;
+}
+.atas h1 {
+    float: left;
+    font-size: 22px;
+    margin: 0;
+    margin-left: 5%;
+    cursor: pointer;
+}
+
+.messageArea {
+    position: absolute;
+    top: 67px;left: 15%;right: 15%;bottom: 12%;
+    padding-top: 50px;
+    padding-bottom: 10px;
+    overflow: auto;
+}
+.messageArea::-webkit-scrollbar { width: 0px; }
+.messageArea .message {
+    background-color: #fff;
+    box-shadow: 1px 1px 5px 1px #ddd;
+    border-radius: 6px;
+    width: 60%;
+    padding: 1px;
+    margin-bottom: 25px;
+    float: left;
+}
+.messageArea .message.mine {
+    background-color: #3498db;
+    color: #fff;
+    float: right;
+}
+
+.typingArea {
+    position: fixed;
+    bottom: 3%;left: 15%;right: 15%;
+}
+.typingArea .box {
+    border-radius: 190px;
+    border: 1px solid #ddd;
+    padding: 1px 60px 0px 30px;
+    width: 89.85%;
+    height: 55px;
+}
+.typingArea #kirim {
+    background: none;
+    border: none;
+    color: #3498db;
+    margin: 0;
+    margin-left: -77px;
+}
+
+@media (max-width: 480px) {
+    .messageArea {
+        left: 2.5%;right: 2.5%;
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+    .typingArea { left: 2.5%;right: 2.5%; }
+    .typingArea .box {
+        height: 50px;
+        width: 71.5%;
+    }
+}
