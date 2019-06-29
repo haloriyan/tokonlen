@@ -11,54 +11,21 @@
 </head>
 <body>
 
+<div id="vueApp">
 <div class="listChat">
     <div class="header">
         <i class="fas fa-angle-left"></i> Kembali ke dashboard
     </div>
-    <div class="list">
+    <div class="list" v-for="list in chatList">
         <div class="wrap">
-            <h3>Riyan Satria</h3>
-            <p>Halo kak</p>
-            <div class="time teks-transparan">3 menit</div>
-        </div>
-    </div>
-    <div class="list">
-        <div class="wrap">
-            <h3>Riyan Satria</h3>
-            <p>Halo kak</p>
-            <div class="time teks-transparan">3 menit</div>
-        </div>
-    </div>
-    <div class="list">
-        <div class="wrap">
-            <h3>Riyan Satria</h3>
-            <p>Halo kak</p>
-            <div class="time teks-transparan">3 menit</div>
-        </div>
-    </div>
-    <div class="list">
-        <div class="wrap">
-            <h3>Riyan Satria</h3>
-            <p>Halo kak</p>
-            <div class="time teks-transparan">3 menit</div>
-        </div>
-    </div>
-    <div class="list">
-        <div class="wrap">
-            <h3>Riyan Satria</h3>
-            <p>Halo kak</p>
-            <div class="time teks-transparan">3 menit</div>
-        </div>
-    </div>
-    <div class="list">
-        <div class="wrap">
-            <h3>Riyan Satria</h3>
-            <p>Halo kak</p>
-            <div class="time teks-transparan">3 menit</div>
+            <h3>@{{ list.users.nama }}</h3>
+            <p>@{{ list.message }} </p>
+            <div class="time teks-transparan">@{{ timeDifference(list.created_at) }}</div>
         </div>
     </div>
 </div>
 
+<div>
 <div class="atas">
     <h1>Riyan Satria</h1>
 </div>
@@ -80,18 +47,72 @@
 </div>
 
 <div class="typingArea">
-    <form action="#">
+    <form v-on:submit.prevent="test">
         {{ csrf_field() }}
         <input type="hidden" name="user_id">
         <input type="text" class="box" placeholder="Ketik pesan...">
         <button class="kirim"><i class="fas fa-paper-plane"></i></button>
     </form>
 </div>
+</div>
 
 <script src="{{ asset('js/vue.js') }}"></script>
 <script src="{{ asset('js/axios.min.js') }}"></script>
 
 @yield('javascript')
+
+<script>
+    let app = new Vue({
+        el: '#vueApp',
+        data: {
+            openedUserId: '',
+            chatList: [],
+        },
+        methods: {
+            test(value) {
+                alert(value)
+            },
+            getChatList() {
+                axios.get("{{ route('api.message.admin.getChatList') }}")
+                .then(res => {
+                    const data = res.data
+                    this.chatList = data
+                })
+            },
+            timeDifference(previous) {
+
+                let current = new Date()
+                previous = new Date(previous)
+
+                var msPerMinute = 60 * 1000;
+                var msPerHour = msPerMinute * 60;
+                var msPerDay = msPerHour * 24;
+                var msPerMonth = msPerDay * 30;
+                var msPerYear = msPerDay * 365;
+                var elapsed = current - previous;
+                
+                if (elapsed < msPerMinute) {
+                    return Math.round(elapsed/1000) + ' seconds ago';   
+                }else if (elapsed < msPerHour) {
+                    return Math.round(elapsed/msPerMinute) + ' minutes ago';   
+                }else if (elapsed < msPerDay ) {
+                    return Math.round(elapsed/msPerHour ) + ' hours ago';   
+                }else if (elapsed < msPerMonth) {
+                    return Math.round(elapsed/msPerDay) + ' days ago';   
+                }else if (elapsed < msPerYear) {
+                    return Math.round(elapsed/msPerMonth) + ' months ago';   
+                }else {
+                    return Math.round(elapsed/msPerYear ) + ' years ago';   
+                }
+            }
+        },
+        created() {
+            setInterval(function() {
+                app.getChatList()
+            }, 1500)
+        }
+    })
+</script>
 
 </body>
 </html>

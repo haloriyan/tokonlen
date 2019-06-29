@@ -13,11 +13,23 @@ use App\Orderan;
 use App\Product;
 use App\DetailOrder;
 use App\Notification;
+use \App\Http\Controllers\CartController as CartCtrl;
+use \App\Http\Controllers\OrderanController as OrderanCtrl;
 
 class UserController extends Controller
 {
     public static function myData() {
-        return Auth::guard('buyer')->user();
+        $myData = Auth::guard('buyer')->user();
+
+        if($myData != "") {
+            $cartData = CartCtrl::get($myData->iduser);
+            $myData->keranjang = $cartData;
+
+            $ordData = OrderanCtrl::get($myData->iduser);
+            $myData->orderan = $ordData;
+        }
+
+        return $myData;
     }
     public function cekUser($email) {
         $email = base64_decode($email);
@@ -38,13 +50,7 @@ class UserController extends Controller
         $user = $this->myData();
 
         if($user != "") {
-            // add orderan info
-            $ordData = Orderan::where([['user_id', $user->iduser], ['status', '0']])->get()->count();
-            $user->orderan = $ordData;
-            
-            // add cart info
-            $cartData = Orderan::where([['user_id', $user->iduser], ['status', '9']])->get()->count();
-            $user->keranjang = $cartData;
+            // 
         }
 
         return view('index')->with(['config' => $conf, 'products' => $prod, 'q' => '', 'myData' => $user]);
@@ -68,19 +74,6 @@ class UserController extends Controller
         $user = $this->myData();
         $prod = Product::find($id);
         $revs = Review::where('product_id', $id)->with(['users'])->get();
-
-        if($user != "") {
-            /* 
-                * Untuk sub menu user 
-            */
-            // add orderan info
-            $ordData = Orderan::where([['user_id', $user->iduser], ['status', '0']])->get()->count();
-            $user->orderan = $ordData;
-
-            // add cart info
-            $cartData = Orderan::where([['user_id', $user->iduser], ['status', '9']])->get()->count();
-            $user->keranjang = $cartData;
-        }
 
         if($user != "") {
             $ableWriteReview = $this->ableToReview($id, $user->iduser);
@@ -128,13 +121,6 @@ class UserController extends Controller
         }
 
         if($myData != "") {
-            // add orderan info
-            $ordData = Orderan::where('user_id', $myData->iduser)->get()->count();
-            $myData->orderan = $ordData;
-
-            // add cart info
-            $cartData = Orderan::where([['user_id', $myData->iduser], ['status', '9']])->get()->count();
-            $myData->keranjang = $cartData;
 
             // add notif info
             $notifData = Notification::where([['user_id', $myData->iduser], ['readed', 0]])->get()->count();
@@ -204,14 +190,6 @@ class UserController extends Controller
         $notif = Cookie::get('notif');
 
         if($myData != "") {
-            // add orderan info
-            $ordData = Orderan::where('user_id', $myData->iduser)->get()->count();
-            $myData->orderan = $ordData;
-
-            // add cart info
-            $cartData = Orderan::where([['user_id', $myData->iduser], ['status', '9']])->get()->count();
-            $myData->keranjang = $cartData;
-
             // add notif info
             $notifData = Notification::where([['user_id', $myData->iduser], ['readed', 0]])->get()->count();
             $myData->notifikasi = $notifData;
@@ -239,14 +217,6 @@ class UserController extends Controller
         $conf = Config::first();
 
         if($myData != "") {
-            // add orderan info
-            $ordData = Orderan::where('user_id', $myData->iduser)->get()->count();
-            $myData->orderan = $ordData;
-
-            // add cart info
-            $cartData = Orderan::where([['user_id', $myData->iduser], ['status', '9']])->get()->count();
-            $myData->keranjang = $cartData;
-
             // add notif info
             $notifData = Notification::where([['user_id', $myData->iduser], ['readed', 0]])->get()->count();
             $myData->notifikasi = $notifData;

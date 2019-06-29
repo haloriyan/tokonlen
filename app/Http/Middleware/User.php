@@ -19,7 +19,7 @@ class User
     {
         $myData = UserController::myData();
         if($myData == "") {
-            return "403";
+            return redirect()->route('login');
         }
         return $next($request);
     }

@@ -12,12 +12,17 @@ use App\DetailOrder;
 use App\Notification;
 use Illuminate\Http\Request;
 use \App\Http\Controllers\RajaongkirController as RajaOngkir;
+use \App\Http\Controllers\UserController as User;
 
 class CartController extends Controller
 {
+    public static function get($userId) {
+        $cartData = Orderan::where([['user_id', $userId], ['status', '9']])->get()->count();
+        return $cartData;
+    }
     public function index() {
         $conf = Config::first();
-        $myData = Auth::guard('buyer')->user();
+        $myData = User::myData();
 
         // get orderId
         $myOrder = Orderan::where([['user_id', $myData->iduser], ['status', 9]])->get();
@@ -31,14 +36,6 @@ class CartController extends Controller
         }
 
         if($myData != "") {
-            // add orderan info
-            $ordData = Orderan::where('user_id', $myData->iduser)->get()->count();
-            $myData->orderan = $ordData;
-
-            // add cart info
-            $cartData = Orderan::where([['user_id', $myData->iduser], ['status', '9']])->get()->count();
-            $myData->keranjang = $cartData;
-
             // add notif info
             $notifData = Notification::where([['user_id', $myData->iduser], ['readed', 0]])->get()->count();
             $myData->notifikasi = $notifData;

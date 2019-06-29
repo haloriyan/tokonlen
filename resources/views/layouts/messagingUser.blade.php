@@ -27,13 +27,13 @@
 </div>
 
 <div class="typingArea" id="typing">
-    <form>
+    <form v-on:submit.prevent="send">
         {{ csrf_field() }}
         <input type="hidden" v-model="csrf">
         <input type="hidden" v-model="endpointSend" />
         <input type="hidden" v-model="user_id" />
         <input type="text" class="box" placeholder="Ketik pesan..." v-model="message">
-        <button id="kirim" v-on:click="send" type="button"><i class="fas fa-paper-plane"></i></button>
+        <button id="kirim" type="button"><i class="fas fa-paper-plane"></i></button>
     </form>
 </div>
 </div>
@@ -61,6 +61,7 @@
                 })
                 .then(res => {
                     const data = res.data
+                    this.message = ''
                     this.grab()
                 })
             },
@@ -75,7 +76,6 @@
             }
         },
         created() {
-            // alert('hehe')
             this.grab()
             setInterval(function() {
                 app.grab()

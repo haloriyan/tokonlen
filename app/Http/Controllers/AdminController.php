@@ -8,6 +8,7 @@ use App\Orderan;
 use App\Product;
 use Illuminate\Http\Request;
 use \App\Http\Controllers\ConfigController as Config;
+use \App\Http\Controllers\MessagingController as Chat;
 
 class AdminController extends Controller
 {
@@ -60,6 +61,8 @@ class AdminController extends Controller
     }
     public function messagingPage() {
         $conf = Config::get();
+
+        $messages = Chat::getChatList();
         return view('admin.messaging')->with(['config' => $conf]);
     }
 }

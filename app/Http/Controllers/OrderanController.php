@@ -12,6 +12,10 @@ use \App\Http\Controllers\UserController as User;
 
 class OrderanController extends Controller
 {
+    public static function get($userId) {
+        $ordData = Orderan::where('user_id', $userId)->get()->count();
+        return $ordData;
+    }
     public function getPriceFromShipping($str) {
         $ret = preg_match("/\((.*?)\)/", $str, $arr);
         return $arr;
@@ -50,13 +54,6 @@ class OrderanController extends Controller
         // }
 
         if($myData != "") {
-            // add orderan info
-            $ordData = Orderan::where('user_id', $myData->iduser)->get()->count();
-            $myData->orderan = $ordData;
-
-            // add cart info
-            $cartData = Orderan::where([['user_id', $myData->iduser], ['status', '9']])->get()->count();
-            $myData->keranjang = $cartData;
 
             // add notif info
             $notifData = Notification::where([['user_id', $myData->iduser], ['readed', 0]])->get()->count();
@@ -82,14 +79,6 @@ class OrderanController extends Controller
         }
 
         if($myData != "") {
-            // add orderan info
-            $ordData = Orderan::where('user_id', $myData->iduser)->get()->count();
-            $myData->orderan = $ordData;
-
-            // add cart info
-            $cartData = Orderan::where([['user_id', $myData->iduser], ['status', '9']])->get()->count();
-            $myData->keranjang = $cartData;
-
             // add notif info
             $notifData = Notification::where([['user_id', $myData->iduser], ['readed', 0]])->get()->count();
             $myData->notifikasi = $notifData;
@@ -105,14 +94,6 @@ class OrderanController extends Controller
         }
 
         if($myData != "") {
-            // add orderan info
-            $ordData = Orderan::where('user_id', $myData->iduser)->get()->count();
-            $myData->orderan = $ordData;
-
-            // add cart info
-            $cartData = Orderan::where([['user_id', $myData->iduser], ['status', '9']])->get()->count();
-            $myData->keranjang = $cartData;
-
             // add notif info
             $notifData = Notification::where([['user_id', $myData->iduser], ['readed', 0]])->get()->count();
             $myData->notifikasi = $notifData;

@@ -22,29 +22,29 @@ Route::get('/register/google/{email}/{nama}', 'UserController@registerViaGoogle'
 Route::get('/register', 'UserController@registerPage')->name('register.page');
 Route::post('/login', 'UserController@login')->name('login');
 Route::get('/logout', 'UserController@logout')->name('logout');
-Route::get('/profil/pengaturan', 'UserController@settings')->name('user.settings');
+Route::get('/profil/pengaturan', 'UserController@settings')->name('user.settings')->middleware('User');
 Route::post('/profil/pengaturan', 'UserController@saveSettings')->name('user.settings.save');
 Route::post('/register', 'UserController@register')->name('register');
-Route::get('/produk/{id}', 'UserController@viewProduct')->name('product.view')->middleware('User');
+Route::get('/produk/{id}', 'UserController@viewProduct')->name('product.view');
 Route::get('/produk/{id}#tulis-ulasan', 'UserController@viewProduct')->name('review.write');
-Route::get('/orderan-saya', 'OrderanController@mine')->name('user.orderan');
-Route::get('/order/{id}', 'OrderanController@detailOrder')->name('order.detail');
+Route::get('/orderan-saya', 'OrderanController@mine')->name('user.orderan')->middleware('User');
+Route::get('/order/{id}', 'OrderanController@detailOrder')->name('order.detail')->middleware('User');
 Route::get('/cara-membayar', 'PaymentController@paymentPage')->name('payment.page');
-Route::get('/cs', 'UserController@csPage')->name('user.cs');
-Route::get('/konfirmasi/{id?}', 'OrderanController@confirmationPage')->name('confirmation.page');
-Route::post('/konfirmasi', 'PaymentController@confirmation')->name('confirmation.store');
-Route::post('/barang-sampai', 'OrderanController@barangSampai')->name('barangSampai');
+Route::get('/cs', 'UserController@csPage')->name('user.cs')->middleware('User');
+Route::get('/konfirmasi/{id?}', 'OrderanController@confirmationPage')->name('confirmation.page')->middleware('User');
+Route::post('/konfirmasi', 'PaymentController@confirmation')->name('confirmation.store')->middleware('User');
+Route::post('/barang-sampai', 'OrderanController@barangSampai')->name('barangSampai')->middleware('User');
 
 // user keranjang
-Route::get('/keranjang', 'CartController@index')->name('cart');
+Route::get('/keranjang', 'CartController@index')->name('cart')->middleware('User');
 Route::post('/cart/store', 'CartController@store')->name('cart.store');
 Route::post('/cart/{id}/delete', 'CartController@delete')->name('cart.delete');
 // user review
 Route::post('/review', 'ReviewController@store')->name('review.store');
 // User Checkout
-Route::get('/orderan/{id}', 'OrderanController@checkout')->name('order.checkout');
+Route::get('/orderan/{id}', 'OrderanController@checkout')->name('order.checkout')->middleware('User');
 // User Notification
-Route::get('/notifikasi', 'UserController@notificationPage')->name('notification');
+Route::get('/notifikasi', 'UserController@notificationPage')->name('notification')->middleware('User');
 
 // Admin
 Route::get('/admin', function() {
@@ -59,6 +59,8 @@ Route::get('/admin/setelan', 'AdminController@configPage')->name('admin.config')
 Route::get('/admin/login', 'AdminController@loginPage')->name('admin.login');
 Route::get('/admin/perpesanan', 'AdminController@messagingPage')->name('admin.messaging');
 Route::get('/admin/dashboard', 'AdminController@dashboard')->name('admin.dashboard');
+
+Route::get('/tuested', 'MessagingController@getChatList');
 
 Route::post('/admin/login', 'AdminController@login')->name('admin.login.action');
 
