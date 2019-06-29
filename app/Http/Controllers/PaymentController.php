@@ -6,10 +6,10 @@ use App\Config;
 use App\Orderan;
 use App\Payment;
 use Illuminate\Http\Request;
+use \App\Http\Controllers\NotificationController as NotifCtrl;
 
 class PaymentController extends Controller
 {
-
     public function paymentPage() {
         $conf = Config::first();
         $datas = Payment::all();
@@ -76,14 +76,15 @@ class PaymentController extends Controller
 
         echo "<img src='".asset('storage/evidence/'.$bukti)."'>";
     }
-    public function paymentConfirmation($id, Request $req) {
+    public function paymentConfirmation(Request $req) {
+        $id = $req->orderId;
+        
         $ord = Orderan::find($id);
-
         $ord->status = 2;
+        $ord->resi = $req->resi;
         $ord->save();
 
-        // $noticeUser = app('App\Http\Controllers\NotificationController')->notice($ord->user_id, "Orderan telah dikirim ke alamat Anda");
-        $noticeUser = \App\Http\Controllers\NotificationController::notice($ord->user_id, "Orderan telah dikirim ke alamat Anda");
+        $noticeUser = NotifCtrl::notice($ord->user_id, "Orderan telah dikirim ke alamat Anda");
 
         return redirect()->route('admin.confirmation');
     }

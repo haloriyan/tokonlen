@@ -65,6 +65,10 @@ class UserController extends Controller
             if($getDetailOrder->count() == 0) {
                 return false;
             }else {
+                $check = ReviewController::check($user_id, $product_id);
+                if($check->count() != 0) {
+                    return false;
+                }
                 return true;
             }
         }

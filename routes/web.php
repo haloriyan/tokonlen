@@ -39,6 +39,9 @@ Route::post('/barang-sampai', 'OrderanController@barangSampai')->name('barangSam
 Route::get('/keranjang', 'CartController@index')->name('cart')->middleware('User');
 Route::post('/cart/store', 'CartController@store')->name('cart.store');
 Route::post('/cart/{id}/delete', 'CartController@delete')->name('cart.delete');
+
+Route::delete('/orderan/{id}', 'OrderanController@delete')->name('orderan.delete');
+
 // user review
 Route::post('/review', 'ReviewController@store')->name('review.store');
 // User Checkout
@@ -64,7 +67,7 @@ Route::get('/tuested', 'MessagingController@getChatList');
 
 Route::post('/admin/login', 'AdminController@login')->name('admin.login.action');
 
-Route::post('/admin/konfirmasi/{id}', 'PaymentController@paymentConfirmation')->name('payment.confirmation');
+Route::post('/admin/konfirmasi/confirm', 'PaymentController@paymentConfirmation')->name('payment.confirmation');
 
 Route::get('/admin/produk/tambah', 'ProductController@create')->name('product.create');
 Route::post('/admin/produk/store', 'ProductController@store')->name('product.store');

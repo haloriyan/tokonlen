@@ -8,6 +8,7 @@
 function toIdr($angka) {
     return 'Rp. '.strrev(implode('.',str_split(strrev(strval($angka)),3)));
 }
+$noResi = ($myOrder->resi == "") ? "Belum tersedia" : $myOrder->resi;
 @endphp
 
 @section('content')
@@ -21,6 +22,7 @@ function toIdr($angka) {
                     <a href="{{ route('user.orderan') }}"><button class="biru-alt">Cek orderan</button></a>
                 </div>
             @else
+                <h3>No. Resi : {{ $noResi }}</h3>
                 <table>
                     <thead>
                         <tr>
@@ -38,13 +40,13 @@ function toIdr($angka) {
                                 <td><a href="{{ route('product.view', $item->idproduct) }}" class="teks-gelap">{{ $item->title }}</a></td>
                                 <td>{{ $item->qty }}</td>
                                 <td>{{ toIdr($item->total) }}</td>
-                                {{-- @if ($UserController::ableToReview($item->idproduct, $myData->iduser))
+                                @if ($UserController::ableToReview($item->idproduct, $myData->iduser))
                                     <td>
                                         <a href="{{ route('review.write', $item->idproduct) }}">
                                             <button class="hijau-alt"><i class="fas fa-edit"></i> Ulas</button>
                                         </a>
                                     </td>
-                                @endif --}}
+                                @endif
                             </tr>
                         @endforeach
                         <tr>

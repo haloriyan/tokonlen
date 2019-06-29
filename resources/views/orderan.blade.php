@@ -32,6 +32,10 @@ function toIdr($angka) {
                         @foreach ($myOrder as $item)
                             @php
                                 $payButton = "";
+                                $deleteButton = "";
+                                $detailButton = '<a href="'.route('order.detail', $item->idorder).'">
+                                        <button class="biru-alt">Detail</button>
+                                    </a>';
                                 if($item->status == 2) {
                                     $displayedStatus = "Dikirim";
                                     $payButton = "<button class='hijau' onclick='sampai(`".$item->idorder."`)'>Sudah sampai?</button>";
@@ -47,17 +51,22 @@ function toIdr($angka) {
                                     $payButton = "<a href='". route('order.detail', $item->idorder)."'>
                                         <button class='hijau'>Tulis ulasan</button>
                                     </a>";
+                                    $detailButton = "";
+                                    $deleteButton = '<form action="'.route('orderan.delete', $item->idorder).'" method="post">
+                                        '.csrf_field().'
+                                        <input type="hidden" name="_method" value="delete">
+                                        <button class="merah-alt"><i class="fas fa-trash"></i></button>
+                                    </form>';
                                 }
                             @endphp
                             <tr>
                                 <td>INV{{ $item->idorder }}</td>
                                 <td>{{ toIdr($item->total + $item->shipping_price) }}</td>
                                 <td>{{ $displayedStatus }}</td>
-                                <td>
-                                    <a href="{{ route('order.detail', $item->idorder) }}">
-                                        <button class="biru-alt">Detail</button>
-                                    </a>
+                                <td class="rata-kanan">
+                                    {!! $detailButton !!}
                                     {!! $payButton !!}
+                                    {!! $deleteButton !!}
                                 </td>
                             </tr>
                         @endforeach

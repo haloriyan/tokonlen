@@ -77,6 +77,7 @@ class CartController extends Controller
             $ord->total = 0;
             $ord->tanggal = date('Y-m-d');
             $ord->status = 9;
+            $ord->resi = '';
             $ord->bukti = '';
             $ord->shipping = '';
             $ord->shipping_price = 0;

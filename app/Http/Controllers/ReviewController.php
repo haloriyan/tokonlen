@@ -10,6 +10,10 @@ use App\Orderan;
 
 class ReviewController extends Controller
 {
+    public static function check($userId, $productId) {
+        $q = Review::where([['user_id', $userId], ['product_id', $productId]])->get();
+        return $q;
+    }
     public function store(Request $req) {
         $myData = Auth::guard('buyer')->user();
 

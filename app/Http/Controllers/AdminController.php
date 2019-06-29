@@ -35,10 +35,11 @@ class AdminController extends Controller
     public function confirmationPage() {
         $conf = Config::get();
         // $data = Orderan::where('status', 3)->get();
-        $data = DB::table('orderan')
-                    ->where('status', 3)
-                    ->join('users', 'orderan.user_id', '=', 'users.iduser')
-                    ->get();
+        // $data = DB::table('orderan')
+        //             ->where('status', 3)
+        //             ->join('users', 'orderan.user_id', '=', 'users.iduser')
+        //             ->get();
+        $data = Orderan::where('status', 3)->with(['users'])->get();
         return view('admin.confirmation')->with(['config' => $conf, 'notif' => '', 'datas' => $data]);
     }
     public function loginPage() {

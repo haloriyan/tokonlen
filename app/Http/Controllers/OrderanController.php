@@ -42,19 +42,15 @@ class OrderanController extends Controller
         $myData = User::myData();
 
         // get detail order
-        // get orderId
-        $myOrder = Orderan::where([['user_id', $myData->iduser], ['status', '!=', 9], ['status', '!=', 8]])->get();
-        // if($myOrder->count() == 0) {
-        //     $myCart = "null";
-        // }else {
-        //     $myCart = DB::table('detail_order')
-        //                 ->where('order_id', $myOrder[0]->idorder)
-        //                 ->join('products', 'product_id', '=', 'products.idproduct')
-        //                 ->get();
-        // }
+        $myOrder = Orderan::where([
+            ['user_id', $myData->iduser],
+            ['status', '!=', 9],
+            ['status', '!=', 8],
+            ['review_status', '=', 0],
+        ])
+        ->get();
 
         if($myData != "") {
-
             // add notif info
             $notifData = Notification::where([['user_id', $myData->iduser], ['readed', 0]])->get()->count();
             $myData->notifikasi = $notifData;
@@ -117,6 +113,12 @@ class OrderanController extends Controller
         $prod = Orderan::find($id);
         $prod->status = 1;
         $prod->save();
+
+        return redirect()->route('user.orderan');
+    }
+    public function delete($id) {
+        $ord = Orderan::find($id);
+        $ord->delete();
 
         return redirect()->route('user.orderan');
     }

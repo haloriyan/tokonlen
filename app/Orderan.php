@@ -8,4 +8,8 @@ class Orderan extends Model
 {
     protected $table = 'orderan';
     protected $primaryKey = 'idorder';
+
+    public function users() {
+        return $this->belongsTo('App\User', 'user_id');
+    }
 }

@@ -22,17 +22,18 @@
                     @foreach ($datas as $item)
                         <tr>
                             <td>INV{{$item->idorder}}</td>
-                            <td>{{ $item->alamat }} ({{ $item->nama }})</td>
+                            <td>{{ $item->users->alamat }} ({{ $item->users->nama }})</td>
                             <td>
                                 <a href="{{ route('evidence', $item->idorder) }}">
                                     <img src="{{ asset('storage/evidence/'.$item->bukti) }}" class="lebar-25">;
                                 </a>
                             </td>
                             <td>
-                                <form action="{{ route('payment.confirmation', $item->idorder) }}" method="POST">
+                                {{-- <form action="{{ route('payment.confirmation', $item->idorder) }}" method="POST">
                                     {{ csrf_field() }}
                                     <button class="biru">Kirim</button>
-                                </form>
+                                </form> --}}
+                                <button class="biru" onclick="kirim(this.value)" value="{{ $item->idorder }}">Kirim</button>
                             </td>
                         </tr>
                     @endforeach
@@ -41,4 +42,34 @@
         @endif
     </div>
 </div>
+
+<div class="bg"></div>
+<div class="popupWrapper" id="confirm">
+    <div class="popup">
+        <div class="wrap">
+            <h3>Kirim Barang Orderan
+                <div class="ke-kanan" onclick="tutup('#confirm')"><i class="fas fa-times"></i></div>
+            </h3>
+            <form action="{{ route('payment.confirmation') }}" method="POST">
+                {{ csrf_field() }}
+                <input type="hidden" class="box" id="orderId" name="orderId">
+                <div>No. Resi :</div>
+                <input type="text" class="box" name="resi" style="width: 100%;">
+                <button class="biru lebar-100">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('javascript')
+<script>
+    const kirim = (orderId) => {
+        munculPopup("#confirm", $("#confirm").pengaya("top: 120px"))
+        $("#orderId").isi(orderId)
+    }
+    const tutup = (popupId) => {
+        hilangPopup(popupId)
+    }
+</script>
 @endsection
