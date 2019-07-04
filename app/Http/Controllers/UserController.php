@@ -23,10 +23,10 @@ class UserController extends Controller
 
         if($myData != "") {
             $cartData = CartCtrl::get($myData->iduser);
-            $myData->keranjang = $cartData;
+            $myData->keranjang = $cartData->count();
 
             $ordData = OrderanCtrl::get($myData->iduser);
-            $myData->orderan = $ordData;
+            $myData->orderan = $ordData->count();
         }
 
         return $myData;
@@ -132,7 +132,7 @@ class UserController extends Controller
         }
 
         $prod = Product::where('title', 'LIKE', '%'.$q.'%')->get();
-        return view('index')->with(['config' => $conf, 'products' => $prod, 'q' => $q, 'myData' => $myData]);
+        return view('search')->with(['config' => $conf, 'products' => $prod, 'q' => $q, 'myData' => $myData]);
     }
     public function register(Request $req) {
         $u = new User;

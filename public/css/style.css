@@ -168,6 +168,7 @@ table td,table th {
     border-bottom: 1px solid #ddd;
     padding: 15px 10px;
 }
+table th { text-align: left; }
 table td form { display: inline-block; }
 
 /* text */

@@ -17,7 +17,7 @@ use \App\Http\Controllers\UserController as User;
 class CartController extends Controller
 {
     public static function get($userId) {
-        $cartData = Orderan::where([['user_id', $userId], ['status', '9']])->get()->count();
+        $cartData = Orderan::where([['user_id', $userId], ['status', '9']])->get();
         return $cartData;
     }
     public function index() {

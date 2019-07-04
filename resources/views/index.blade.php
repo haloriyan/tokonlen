@@ -28,15 +28,17 @@ function toIdr($angka) {
     @else
         @foreach ($products as $item)
             <div class="list-product">
-                <img src="{{ asset('storage/uploaded/'.$item->image) }}" class="cover">
-                <div class="wrap">
-                    <h3><a href="{{ route('product.view', $item->idproduct) }}">{{ $item->title }}</a></h3>
-                    <p>
-                        @php
-                            echo toIdr($item->price)
-                        @endphp
-                    </p>
-                    <button class="biru-alt"><i class="fas fa-shopping-cart"></i></button>
+                <div class="wrapper">
+                    <img src="{{ asset('storage/uploaded/'.$item->image) }}" class="cover">
+                    <div class="wrap">
+                        <h3><a href="{{ route('product.view', $item->idproduct) }}">{{ $item->title }}</a></h3>
+                        <p>
+                            @php
+                                echo toIdr($item->price)
+                            @endphp
+                        </p>
+                        <button class="biru-alt"><i class="fas fa-shopping-cart"></i></button>
+                    </div>
                 </div>
             </div>
         @endforeach

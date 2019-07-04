@@ -13,7 +13,13 @@ use \App\Http\Controllers\UserController as User;
 class OrderanController extends Controller
 {
     public static function get($userId) {
-        $ordData = Orderan::where('user_id', $userId)->get()->count();
+        $ordData = Orderan::where([
+            ['user_id', $userId],
+            ['status', '!=', 9],
+            ['status', '!=', 8],
+            ['review_status', '=', 0],
+        ])
+        ->get();
         return $ordData;
     }
     public function getPriceFromShipping($str) {
@@ -42,13 +48,7 @@ class OrderanController extends Controller
         $myData = User::myData();
 
         // get detail order
-        $myOrder = Orderan::where([
-            ['user_id', $myData->iduser],
-            ['status', '!=', 9],
-            ['status', '!=', 8],
-            ['review_status', '=', 0],
-        ])
-        ->get();
+        $myOrder = $this->get($myData->iduser);
 
         if($myData != "") {
             // add notif info

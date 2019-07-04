@@ -1,0 +1,28 @@
+.container {
+    /* background-color: red; */
+    left: 30%;
+}
+.list-product {
+    width: 32%;
+    margin: 0px 5px;
+}
+.list-product:nth-child(1),
+.list-product:nth-child(3n+1) {
+    margin-left: 0px;
+}
+.list-product:nth-child(3n) {
+    margin-right: 0px;
+}
+
+.boxKiri {
+    position: fixed;
+    top: 110px;left: 5%;
+    width: 20%;
+    background-color: #fff;
+    box-shadow: 1px 1px 5px 1px #ddd;
+}
+.boxKiri .wrap { margin: 10%; }
+
+.pencarian {
+    left: 30%;right: 5%;
+}

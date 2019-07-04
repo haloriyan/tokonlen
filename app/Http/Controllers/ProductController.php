@@ -78,4 +78,13 @@ class ProductController extends Controller
         
         return response()->json($imgs);
     }
+    public function search(Request $req) {
+        $q = $req->q;
+        $status = 200;
+        $prod = Product::where([['title', 'LIKE', '%'.$q.'%']])->get();
+        if($prod->count() == 0) {
+            $status = 404;
+        }
+        return response()->json(['status' => $status, 'result' => $prod]);
+    }
 }

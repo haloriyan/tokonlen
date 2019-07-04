@@ -70,14 +70,14 @@
 
 .container {
     position: absolute;
-    top: 200px;left: 5%;right: 5%;
+    top: 210px;left: 5%;right: 5%;
     margin-bottom: 50px;
 }
 .list-product {
     display: inline-block;
     vertical-align: top;
     width: 23.5%;
-    margin: 25px 10px;
+    margin: 0px 10px;
     margin-bottom: 30px !important;
     background-color: #fff;
     box-shadow: 1px 1px 5px 1px #ddd;
@@ -87,10 +87,10 @@
     color: #444;
 }
 .list-product:nth-child(1),
-.list-product:nth-child(3n + 1) {
+.list-product:nth-child(4n + 1) {
     margin-left: 0px;
 }
-.list-product:nth-child(3n) {
+.list-product:nth-child(4n) {
     margin-right: 0px;
 }
 .list-product .cover {
