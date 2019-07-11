@@ -15,6 +15,7 @@ use App\DetailOrder;
 use App\Notification;
 use \App\Http\Controllers\CartController as CartCtrl;
 use \App\Http\Controllers\OrderanController as OrderanCtrl;
+use \App\Http\Controllers\CategoryController as CategoryCtrl;
 
 class UserController extends Controller
 {
@@ -125,14 +126,15 @@ class UserController extends Controller
         }
 
         if($myData != "") {
-
             // add notif info
             $notifData = Notification::where([['user_id', $myData->iduser], ['readed', 0]])->get()->count();
             $myData->notifikasi = $notifData;
         }
 
+        $cats = CategoryCtrl::get();
+
         $prod = Product::where('title', 'LIKE', '%'.$q.'%')->get();
-        return view('search')->with(['config' => $conf, 'products' => $prod, 'q' => $q, 'myData' => $myData]);
+        return view('search')->with(['config' => $conf, 'products' => $prod, 'q' => $q, 'myData' => $myData, 'categories' => $cats]);
     }
     public function register(Request $req) {
         $u = new User;

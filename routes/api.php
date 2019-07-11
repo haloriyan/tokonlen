@@ -38,3 +38,4 @@ Route::post('/messaging/user/mine', 'MessagingController@mine')->name('api.messa
 
 Route::get('/messaging/admin/chatlist', 'MessagingController@getChatList')->name('api.message.admin.getChatList')->middleware('cors');
 
+Route::post('/category/search', 'CategoryController@search')->name('api.searchCategory');

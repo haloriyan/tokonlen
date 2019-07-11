@@ -42,7 +42,7 @@ class ProductController extends Controller
         $p->price = $req->price;
         // $p->category = $req->category;
         $p->image = $this->getFirst($file);
-        $p->category = "test";
+        $p->category = $req->category;
 
         $p->save();
 
@@ -60,8 +60,7 @@ class ProductController extends Controller
         $p->description = $req->description;
         $p->stock = $req->stock;
         $p->price = $req->price;
-        // $p->category = $req->category;
-        $p->category = "test";
+        $p->category = $req->category;
 
         $p->save();
 
@@ -80,8 +79,14 @@ class ProductController extends Controller
     }
     public function search(Request $req) {
         $q = $req->q;
+        $cat = $req->cat;
+
         $status = 200;
-        $prod = Product::where([['title', 'LIKE', '%'.$q.'%']])->get();
+        $prod = Product::where([
+            ['title', 'LIKE', '%'.$q.'%'],
+            ['category', 'LIKE', '%'.$cat.'%'],
+        ])
+        ->get();
         if($prod->count() == 0) {
             $status = 404;
         }

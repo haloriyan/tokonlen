@@ -13,6 +13,10 @@ class CategoryController extends Controller
         $allCat = Category::all();
         return response()->json($allCat);
     }
+    public static function get() {
+        $cat = Category::orderBy('category', 'ASC')->get();
+        return $cat;
+    }
     public function create() {
         $conf = Config::first();
         return view('admin.category.create')->with('config', $conf);
@@ -44,5 +48,10 @@ class CategoryController extends Controller
         $cat->delete();
 
         return response()->json(['message' => 'sukses']);
+    }
+    public function search(Request $req) {
+        $q = $req->q;
+        $cat = Category::where('category', 'LIKE', '%'.$q.'%')->orderBy('category', 'ASC')->get();
+        return $cat;
     }
 }

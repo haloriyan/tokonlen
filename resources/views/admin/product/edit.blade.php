@@ -22,11 +22,18 @@
         transition: 0.4s;
     }
     .imgPreview:hover .keterangan { opacity: 1; }
+    .listCategory {
+        background-color: #0a5e6a;
+        color: #fff;
+        display: inline-block;
+        padding: 12px 20px;
+    }
 </style>
 @endsection
 
 @section('content')
-<h2>Informasi Produk</h2>
+<div id="app">
+    <h2>Informasi Produk</h2>
 <div class="bag bag-10">
     <div class="wrap">
         <form action="{{ route('product.update', $data->idproduct) }}" method="POST">
@@ -35,10 +42,17 @@
             <input type="text" class="box" name="title" value="{{ $data->title }}">
             <div>Deskripsi :</div>
             <textarea name="description" class="box">{{ $data->description }}</textarea>
-            <div>Harga</div>
-            <input type="number" class="box" name="price" value="{{ $data->price }}">
-            <div>Stok</div>
-            <input type="number" class="box" name="stock" value="{{ $data->stock }}">
+            <div class="bag bag-5">
+                <div>Harga</div>
+                <input type="number" class="box" name="price" value="{{ $data->price }}">
+            </div>
+            <div class="bag bag-5">
+                <div>Stok</div>
+                <input type="number" class="box" name="stock" value="{{ $data->stock }}">
+            </div>
+            <div class="mb-1">Category :</div>
+            <div class="listCategory rounded-circle" v-for="item in categories" @click="selectCategory">@{{ item.category }}</div>
+            <input name="category" id="category" class="box" @input="searchCategory" v-model="category">
             <button class="biru">Submit</button>
         </form>
     </div>
@@ -60,6 +74,7 @@
         </div>
     </div>
 </div>
+</div>
 @endsection
 
 @section('javascript')
@@ -67,12 +82,13 @@
 <script src="{{ asset('js/axios.min.js') }}"></script>
 <script>
     let app = new Vue({
-        el: '#formGaleri',
-        data() {
-            return {
-                product_id: '{{ $data->idproduct }}',
-                images: []
-            }
+        el: '#app',
+        data: {
+            product_id: '{{ $data->idproduct }}',
+            images: [],
+            categories: [],
+            category: '',
+            storedCategory: ''
         },
         mounted() {
             this.loadImages()
@@ -115,6 +131,34 @@
                         this.loadImages()
                     }
                 })
+            },
+            getCurrentTyped(typed) {
+                let a = typed.split(',')
+                let ret = a[a.length - 1]
+                return ret
+            },
+            searchCategory(e) {
+                let typed = e.currentTarget.value
+                typed = this.getCurrentTyped(typed)
+                if(typed == "") {
+                    this.categories = ''
+                    return false
+                }
+                axios.post("{{ route('api.searchCategory') }}", {
+                    q: typed
+                })
+                .then(res => {
+                    const data = res.data
+                    this.categories = data
+                })
+            },
+            selectCategory(e) {
+                let targeted = e.currentTarget.innerHTML
+                // this.category += targeted + ','
+                this.storedCategory += targeted + ', '
+                this.category = '' + this.storedCategory
+                
+                this.categories = ''
             }
         }
     })

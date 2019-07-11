@@ -26,10 +26,14 @@ function toIdr($angka) {
 
 <div class="boxKiri">
     <div class="wrap">
-        <div>Hehe :</div>
-        <input type="text" class="box" id="hehe">
+        <select name="category" id="category" class="box mt-1 mb-2" @change="setCategory" v-model="category">
+            <option value="">Semua Kategori</option>
+            @foreach ($categories as $item)
+                <option>{{ $item->category }}</option>
+            @endforeach
+        </select>
         <div>Urutkan :</div>
-        <select name="filter" id="filter" class="box mt-1">
+        <select name="filter" id="filter" class="box mt-1 mb-2">
             <option value="desc">Terbaru</option>
             <option value="desc">Termurah</option>
         </select>
@@ -71,11 +75,14 @@ function toIdr($angka) {
             products: [],
             endpoint: "{{ route('api.product.search') }}",
             q: '',
+            category: ''
         },
         methods: {
-            loads(q) {
+            loads(props) {
+                let category = (props.category === undefined) ? "" : props.category
                 axios.post(this.endpoint, {
-                    q: q
+                    q: props.keyword,
+                    cat: category
                 })
                 .then(res => {
                     const data = res.data
@@ -90,14 +97,21 @@ function toIdr($angka) {
             },
             cari(e) {
                 let typed = e.currentTarget.value
-                this.loads(typed)
+                this.loads({keyword: typed})
+            },
+            setCategory(e) {
+                let cat = e.currentTarget.value
+                this.loads({
+                    keyword: this.q,
+                    category: cat
+                })
             }
         },
         beforeMount() {
-            this.q = this.$el.querySelector('[name=q').value
+            this.q = this.$el.querySelector('[name=q]').value
         },
         mounted() {
-            this.loads(this.q)
+            this.loads({ keyword: this.q })
         },
     })
 </script>
