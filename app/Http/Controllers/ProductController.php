@@ -7,6 +7,8 @@ use App\Product;
 use App\Config;
 use App\Images;
 
+use PDF;
+
 class ProductController extends Controller
 {
     public function getFirst($arr) {
@@ -40,7 +42,6 @@ class ProductController extends Controller
         $p->description = $req->description;
         $p->stock = $req->stock;
         $p->price = $req->price;
-        // $p->category = $req->category;
         $p->image = $this->getFirst($file);
         $p->category = $req->category;
 
@@ -91,5 +92,10 @@ class ProductController extends Controller
             $status = 404;
         }
         return response()->json(['status' => $status, 'result' => $prod]);
+    }
+    public function toPdf() {
+        $products = Product::all();
+        $pdf = PDF::loadview('product_pdf', ['products' => $products]);
+        return $pdf->stream();
     }
 }

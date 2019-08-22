@@ -154,7 +154,6 @@
             },
             selectCategory(e) {
                 let targeted = e.currentTarget.innerHTML
-                // this.category += targeted + ','
                 this.storedCategory += targeted + ', '
                 this.category = '' + this.storedCategory
                 

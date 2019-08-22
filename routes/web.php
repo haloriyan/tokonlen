@@ -11,6 +11,12 @@
 |
 */
 
+Route::get('/pdf', 'ProductController@toPdf')->name('to.pdf');
+
+Route::get('/testo', function() {
+    return "haha";
+});
+
 // Untuk user
 Route::get('/cari', 'UserController@cariProduct')->name('user.cari');
 Route::get('/', 'UserController@indexPage')->name('user.index');

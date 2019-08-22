@@ -3,8 +3,20 @@
 @section('title', 'Tambah Produk Baru')
 @section('nama_toko', $config->nama_toko)
 
+@section('head.dependencies')
+<style>
+    .listCategory {
+        background-color: #0a5e6a;
+        color: #fff;
+        display: inline-block;
+        padding: 12px 20px;
+    }
+</style>
+@endsection
+
 @section('content')
-<form action="{{ route('product.store') }}" method="post" enctype="multipart/form-data">
+<div id="app">
+    <form action="{{ route('product.store') }}" method="post" enctype="multipart/form-data">
     <h2>Informasi Produk</h2>
     <div class="bag bag-10">
         <div class="wrap">
@@ -15,8 +27,17 @@
             <textarea name="description" class="box" required></textarea>
             <div>Harga</div>
             <input type="number" class="box" name="price" required>
-            <div>Stok</div>
-            <input type="number" class="box" name="stock" required>
+            <div class="bag bag-5">
+                <div>Harga</div>
+                <input type="number" class="box" name="price">
+            </div>
+            <div class="bag bag-5">
+                <div>Stok</div>
+                <input type="number" class="box" name="stock">
+            </div>
+            <div class="mb-1">Category :</div>
+            <div class="listCategory rounded-circle" v-for="item in categories" @click="selectCategory">@{{ item.category }}</div>
+            <input name="category" id="category" class="box" @input="searchCategory" v-model="category">
         </div>
     </div>
     <h2>Gambar Produk</h2>
@@ -28,9 +49,12 @@
     </div>
     <button class="biru">Buat Produk</button>
 </form>
+</div>
 @endsection
 
 @section('javascript')
+<script src="{{ asset('js/vue.js') }}"></script>
+<script src="{{ asset('js/axios.min.js') }}"></script>
 <script>
 function getExtension(file) {
     let explode = file.split(".")
@@ -54,5 +78,43 @@ function changeInputFile(that) {
     input.setAttribute('name', 'gambar[]')
     $("#appearInput").append(input)
 }
+let app = new Vue({
+    el: '#app',
+    data: {
+        images: [],
+        categories: [],
+        category: '',
+        storedCategory: ''
+    },
+    methods: {
+        getCurrentTyped(typed) {
+            let a = typed.split(',')
+            let ret = a[a.length - 1]
+            return ret
+        },
+        searchCategory(e) {
+            let typed = e.currentTarget.value
+            typed = this.getCurrentTyped(typed)
+            if(typed == "") {
+                this.categories = ''
+                return false
+            }
+            axios.post("{{ route('api.searchCategory') }}", {
+                q: typed
+            })
+            .then(res => {
+                const data = res.data
+                this.categories = data
+            })
+        },
+        selectCategory(e) {
+            let targeted = e.currentTarget.innerHTML
+            this.storedCategory += targeted + ', '
+            this.category = '' + this.storedCategory
+            
+            this.categories = ''
+        }
+    }
+})
 </script>
 @endsection
